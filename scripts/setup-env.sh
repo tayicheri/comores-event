@@ -31,6 +31,7 @@ ensure_env_key() {
 }
 
 ensure_env_key "database/.env" "ADMIN_EMAIL" "admin@example.com"
+ensure_env_key "database/.env" "ADMIN_PASSWORD" "change_me_admin_password"
 ensure_env_key ".env" "GRAFANA_ALERT_EMAIL" "ops@example.com"
 
 echo ""

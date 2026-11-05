@@ -1,4 +1,5 @@
 -- Schéma minimal auth (users, roles, refresh_tokens)
+-- 00_admin_password.sh pose les GUC comores.admin_* avant ce fichier.
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
 CREATE TYPE account_status AS ENUM ('active', 'disabled', 'pending');
@@ -51,19 +52,21 @@ CREATE INDEX idx_users_email ON users(email);
 
 INSERT INTO roles (name) VALUES ('user'), ('admin');
 
--- Admin bootstrap : mot de passe = change_me_admin_password (bcrypt cost 14)
--- Hash généré pour le template ; changez-le en prod.
-INSERT INTO users (email, password_hash, display_name, account_status, email_verified_at)
+-- Admin bootstrap : id fixe, email/mot de passe depuis GUC (hash bcrypt cost 14).
+INSERT INTO users (id, email, password_hash, display_name, account_status, email_verified_at)
 VALUES (
-    'admin@example.com',
-    crypt('change_me_admin_password', gen_salt('bf', 14)),
+    '20000000-0000-4000-8000-000000000001',
+    current_setting('comores.admin_email'),
+    crypt(current_setting('comores.admin_password'), gen_salt('bf', 14)),
     'Admin',
     'active',
     NOW()
-);
+)
+ON CONFLICT (id) DO NOTHING;
 
 INSERT INTO user_roles (user_id, role_id)
 SELECT u.id, r.id
 FROM users u
 CROSS JOIN roles r
-WHERE u.email = 'admin@example.com' AND r.name = 'admin';
+WHERE u.id = '20000000-0000-4000-8000-000000000001' AND r.name = 'admin'
+ON CONFLICT DO NOTHING;

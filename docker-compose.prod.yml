@@ -24,7 +24,11 @@ services:
       - "5432"
     volumes:
       - ./database/init/postgres:/docker-entrypoint-initdb.d
+      - ./database/postgres-entrypoint.sh:/usr/local/bin/comores-db-entrypoint.sh:ro
+      - ./database/sync-admin-password.sh:/usr/local/bin/comores-sync-admin-password.sh:ro
       - app-pg-data:/var/lib/postgresql/data
+    entrypoint: ["/bin/sh", "/usr/local/bin/comores-db-entrypoint.sh"]
+    command: ["postgres"]
     healthcheck:
       test: ["CMD-SHELL", 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
       interval: 5s

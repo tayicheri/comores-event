@@ -1,32 +1,278 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* ——— Fonts ——— */
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
 
-  /* Neutres : slate */
-  --color-surface: #ffffff;
-  --color-canvas: #f1f5f9;
-  --color-line: #e2e8f0;
-  --color-line-strong: #cbd5e1;
-  --color-ink: #0f172a;
-  --color-ink-muted: #475569;
-  --color-ink-subtle: #64748b;
+  /* ——— Couleurs marque ——— */
+  --color-surface: #fffcf6;
+  --color-canvas: #faf5ea;
+  --color-pale: #f3ebda;
+  --color-cream: #fff9f1;
+  --color-cream-soft: #fff8ee;
+  --color-option: #f8f0dc;
+  --color-hours: #f6ebd4;
+  --color-media: #ddd4c6;
+  --color-line: #e6dfd0;
+  --color-line-strong: #ddd4c4;
+  --color-line-option: #e4dccb;
+  --color-radio: #c9c0b0;
+  --color-ink: #34314b;
+  --color-ink-muted: #5e5a74;
+  --color-ink-subtle: #6e6a82;
+  --color-forest: #252756;
+  --color-forest-deep: #1a1c40;
+  --color-forest-hover: #34386c;
+  --color-gold: #e6b54b;
+  --color-gold-soft: #f6e4b4;
+  --color-gold-hover: #f0c96e;
+  --color-gold-muted: #e4c98a;
+  --color-corail: #df7866;
+  --color-terracotta: #9a4e40;
+  --color-ochre: #7f6429;
+  --color-strip-line: #3c406e;
+  --color-heritage-muted: #c9c4d8;
+  --color-heritage-body: #e7e1d6;
+  --color-footer-muted: #b7b2c8;
+  --color-footer-link: #c4bfd4;
+  --color-white: #ffffff;
 
-  /* Accent : teal */
-  --color-accent-50: #f0fdfa;
-  --color-accent-100: #ccfbf1;
-  --color-accent-500: #14b8a6;
-  --color-accent-600: #0d9488;
-  --color-accent-700: #0f766e;
-  --color-accent-800: #115e59;
+  /* Alias accent (auth / shell admin) */
+  --color-accent-50: #faf5ea;
+  --color-accent-100: #f3ebda;
+  --color-accent-500: #e6b54b;
+  --color-accent-600: #d4a43d;
+  --color-accent-700: #252756;
+  --color-accent-800: #1a1c40;
 
-  /* États */
   --color-danger-50: #fef2f2;
   --color-danger-600: #dc2626;
   --color-danger-700: #b91c1c;
 
-  --radius-card: 0.75rem;
-  --radius-control: 0.5rem;
+  /* ——— Typographie ——— */
+  --text-micro: 0.5rem; /* 8 */
+  --text-2xs: 0.5625rem; /* 9 */
+  --text-xs: 0.625rem; /* 10 */
+  --text-eyebrow: 0.6875rem; /* 11 */
+  --text-caption: 0.75rem; /* 12 */
+  --text-nav: 0.8125rem; /* 13 */
+  --text-sm: 0.875rem; /* 14 */
+  --text-body: 0.9375rem; /* 15 */
+  --text-base: 1rem; /* 16 */
+  --text-lede: 1.125rem; /* 18 */
+  --text-card: 1.6875rem; /* 27 */
+  --text-subtitle: 1.5625rem; /* 25 */
+  --text-panel: 1.75rem; /* 28 */
+  --text-price: 2rem; /* 32 */
+  --text-modal: 2.1875rem; /* 35 */
+  --text-seal: 1.8125rem; /* 29 */
+  --text-date: 4.0625rem; /* 65 */
+  --text-date-sm: 3.375rem; /* 54 */
+  --text-hero-mobile: 3.9375rem; /* 63 */
+  --text-display: clamp(4.5625rem, 7.35vw, 6.75rem); /* 73–108 */
+  --text-display-md: clamp(3.5rem, 11vw, 5.375rem); /* 56–86 */
+  --text-section: clamp(2.9375rem, 4vw, 4.1875rem); /* 47–67 */
+  --text-section-md: clamp(2.5rem, 8vw, 3.5rem); /* 40–56 */
+  --text-section-univers: clamp(2.5rem, 3.5vw, 3.5625rem); /* 40–57 */
+  --text-section-program: clamp(3.0625rem, 4.5vw, 4.25rem); /* 49–68 */
+  --text-section-ticket: clamp(3.25rem, 4.6vw, 4.25rem); /* 52–68 */
+  --text-section-heritage: clamp(2.6875rem, 4.1vw, 4rem); /* 43–64 */
+  --text-section-practical: clamp(3rem, 4.3vw, 4rem); /* 48–64 */
+  --text-section-faq: clamp(2.6875rem, 4vw, 3.8125rem); /* 43–61 */
+  --text-section-footer: clamp(2.5rem, 4.3vw, 3.875rem); /* 40–62 */
 
-  --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.05), 0 1px 3px 0 rgb(15 23 42 / 0.08);
+  --text-micro--line-height: 1.2;
+  --text-2xs--line-height: 1.3;
+  --text-xs--line-height: 1.4;
+  --text-eyebrow--line-height: 1.4;
+  --text-caption--line-height: 1.5;
+  --text-nav--line-height: 1.5;
+  --text-sm--line-height: 1.6;
+  --text-body--line-height: 1.65;
+  --text-base--line-height: 1.5;
+  --text-lede--line-height: 1.45;
+  --text-card--line-height: 1.15;
+  --text-display--line-height: 0.99;
+  --text-display-md--line-height: 0.99;
+  --text-section--line-height: 1.09;
+  --text-section-md--line-height: 1.09;
+  --text-section-univers--line-height: 1.09;
+  --text-section-program--line-height: 1.09;
+  --text-section-ticket--line-height: 1.09;
+  --text-section-heritage--line-height: 1.16;
+  --text-section-practical--line-height: 1.09;
+  --text-section-faq--line-height: 1.09;
+  --text-section-footer--line-height: 1.09;
+  --text-date--line-height: 0.98;
+  --text-date-sm--line-height: 0.98;
+  --text-hero-mobile--line-height: 0.99;
+  --text-price--line-height: 1;
+  --text-panel--line-height: 1.15;
+  --text-subtitle--line-height: 1.2;
+  --text-modal--line-height: 1.15;
+  --text-seal--line-height: 1;
+
+  --tracking-display: -0.055em;
+  --tracking-section: -0.045em;
+  --tracking-card: -0.03em;
+  --tracking-brand: 0.06em;
+  --tracking-kicker: 0.07em;
+  --tracking-eyebrow: 0.09em;
+  --tracking-label: 0.08em;
+  --tracking-tight-label: 0.04em;
+  --tracking-wide-label: 0.06em;
+
+  --leading-tight: 0.99;
+  --leading-snug: 1.09;
+  --leading-lede: 1.45;
+  --leading-body: 1.65;
+  --leading-relaxed: 1.8;
+  --leading-loose: 1.9;
+  --leading-heritage: 2;
+  --leading-card-body: 1.85;
+
+  /* ——— Spacing sémantique ——— */
+  --spacing-section: 8.125rem; /* 130 */
+  --spacing-section-lg: 6.25rem; /* 100 */
+  --spacing-section-md: 4.6875rem; /* 75 */
+  --spacing-section-sm: 3.5rem; /* 56 */
+  --spacing-heritage: 5.75rem; /* 92 */
+  --spacing-heritage-sm: 4.0625rem; /* 65 */
+  --spacing-footer-y: 4.875rem; /* 78 */
+  --spacing-univers-b: 7rem; /* 112 */
+  --spacing-univers-b-sm: 4.5rem; /* 72 */
+  --spacing-container: 2.375rem; /* 38 */
+  --spacing-container-md: 1.75rem; /* 28 */
+  --spacing-container-sm: 1.375rem; /* 22 */
+  --spacing-hero-gap: 4.875rem; /* 78 */
+  --spacing-hero-gap-md: 2.1875rem; /* 35 */
+  --spacing-split: 6.875rem; /* 110 */
+  --spacing-split-md: 2.8125rem; /* 45 */
+  --spacing-program: 5.625rem; /* 90 */
+  --spacing-ticket: 5.9375rem; /* 95 */
+  --spacing-faq: 8.125rem; /* 130 */
+  --spacing-nav: 2.375rem; /* 38 */
+  --spacing-nav-md: 1.125rem; /* 18 */
+  --spacing-header: 6.0625rem; /* 97 */
+  --spacing-header-sm: 4.5rem; /* 72 */
+  --spacing-strip: 7.4375rem; /* 119 */
+  --spacing-hero-min: 34.6875rem; /* 555 */
+  --spacing-hero-img: 36.875rem; /* 590 */
+  --spacing-hero-img-lg: 31.25rem; /* 500 */
+  --spacing-hero-img-md: 25.625rem; /* 410 */
+  --spacing-hero-img-sm: 21.875rem; /* 350 */
+  --spacing-seal: 5.8125rem; /* 93 */
+  --spacing-seal-sm: 4.375rem; /* 70 */
+  --spacing-card-img: 18.25rem; /* 292 */
+  --spacing-card-img-md: 14.375rem; /* 230 */
+  --spacing-card-img-sm: 13.75rem; /* 220 */
+  --spacing-card-img-wide: 20.625rem; /* 330 */
+  --spacing-card-img-xs: 15.9375rem; /* 255 */
+  --spacing-heritage-img: 27.8125rem; /* 445 */
+  --spacing-heritage-img-md: 21.875rem; /* 350 */
+  --spacing-heritage-img-sm: 18.75rem; /* 300 */
+  --spacing-kicker-bar: 1.5625rem; /* 25 */
+  --spacing-btn-y: 0.875rem; /* 14 */
+  --spacing-btn-x: 1.4375rem; /* 23 */
+  --spacing-panel: 2.25rem; /* 36 */
+  --spacing-icon-ring: 2.875rem; /* 46 */
+  --spacing-pin: 2.75rem; /* 44 */
+  --spacing-qty: 2rem; /* 32 */
+  --spacing-btn-min: 2.8125rem; /* 45 */
+  --spacing-btn-min-sm: 2.375rem; /* 38 */
+  --spacing-icon: 1.15em;
+  --spacing-icon-sm: 0.875rem; /* 14 */
+  --spacing-icon-md: 1.25rem; /* 20 */
+  --spacing-icon-lg: 1.375rem; /* 22 */
+  --spacing-check: 0.6875rem; /* 11 */
+  --spacing-radio: 1.0625rem; /* 17 */
+  --spacing-faq-toggle: 1.125rem; /* 18 */
+
+  /* Outline */
+  --outline-width-3: 3px;
+
+  /* ——— Layout ——— */
+  --max-width-page: 81.25rem; /* 1300 */
+  --max-width-page-wide: 82.5rem; /* 1320 */
+  --max-width-hero-copy: 40.625rem; /* 650 */
+  --max-width-hero-desc: 28.125rem; /* 450 */
+  --max-width-quote: 33.75rem; /* 540 */
+  --max-width-intro: 34.375rem; /* 550 */
+  --max-width-univers-aside: 16.25rem; /* 260 */
+  --max-width-program: 22.5rem; /* 360 */
+  --max-width-ticket: 30rem; /* 480 */
+  --max-width-ticket-desc: 26.875rem; /* 430 */
+  --max-width-practical: 27.5rem; /* 440 */
+  --max-width-faq: 33.125rem; /* 530 */
+  --max-width-modal: 32.5rem; /* 520 */
+  --max-width-auth: 24rem;
+
+  /* ——— Radii ——— */
+  --radius-card: 1.25rem; /* 20 */
+  --radius-control: 0.5rem;
+  --radius-pill: 5.625rem; /* 90 */
+  --radius-checkout: 1.75rem; /* 28 */
+  --radius-media: 0.625rem; /* 10 */
+  --radius-media-lg: 0.6875rem; /* 11 */
+  --radius-program: 1.0625rem; /* 17 */
+  --radius-day: 0.4375rem; /* 7 */
+  --radius-badge: 1.875rem; /* 30 */
+  --radius-hero: 8.625rem 1.125rem 1.125rem 1.125rem; /* 138 18 18 18 */
+  --radius-hero-md: 6.875rem 0.875rem 0.875rem 0.875rem; /* 110 14 */
+  --radius-hero-sm: 5.625rem 0.875rem 0.875rem 0.875rem; /* 90 14 */
+
+  /* ——— Shadows ——— */
+  --shadow-card: 0 8px 35px rgb(0 0 0 / 0.016);
+  --shadow-modal: 0 25px 70px rgb(0 0 0 / 0.18);
+  --shadow-nav: 0 15px 30px rgb(0 0 0 / 0.08);
+  --shadow-gold-ring: inset 0 0 0 1px rgb(230 181 75 / 0.5);
+
+  /* ——— Breakpoints alignés maquette ——— */
+  --breakpoint-sm: 32.5rem; /* 520 */
+  --breakpoint-md: 48.75rem; /* 780 */
+  --breakpoint-lg: 70rem; /* 1120 */
+  --breakpoint-xl: 81.25rem; /* 1300 */
+  --breakpoint-2xl: 93.75rem; /* 1500 */
+
+  /* ——— Grilles ——— */
+  --grid-template-columns-hero: 0.94fr 1fr;
+  --grid-template-columns-split: 1fr 1fr;
+  --grid-template-columns-program: 0.9fr 1.2fr;
+  --grid-template-columns-heritage: 1fr 0.99fr;
+  --grid-template-columns-ticket: 0.85fr 1.16fr;
+  --grid-template-columns-faq: 0.8fr 1.25fr;
+  --grid-template-columns-strip: 1fr 1.2fr 0.7fr;
+  --grid-template-columns-step: 1.875rem 1fr;
+  --grid-template-columns-cards: repeat(3, minmax(0, 1fr));
+  --grid-template-columns-cards-md: repeat(2, minmax(0, 1fr));
+
+  /* ——— Background images ——— */
+  --background-image-footer-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpolygon points='100.0,78.0 103.3,92.1 115.6,84.4 107.9,96.7 122.0,100.0 107.9,103.3 115.6,115.6 103.3,107.9 100.0,122.0 96.7,107.9 84.4,115.6 92.1,103.3 78.0,100.0 92.1,96.7 84.4,84.4 96.7,92.1' fill='%23E6B54B' fill-opacity='0.03' stroke='none'/%3E%3Cg fill='none' stroke='%23E6B54B' stroke-width='1.15' stroke-linejoin='round' stroke-linecap='round' opacity='0.18'%3E%3Cpolygon points='100.0,54.0 146.0,100.0 100.0,146.0 54.0,100.0'/%3E%3Cpolygon points='67.5,67.5 132.5,67.5 132.5,132.5 67.5,132.5'/%3E%3Cpolygon points='100.0,78.0 103.3,92.1 115.6,84.4 107.9,96.7 122.0,100.0 107.9,103.3 115.6,115.6 103.3,107.9 100.0,122.0 96.7,107.9 84.4,115.6 92.1,103.3 78.0,100.0 92.1,96.7 84.4,84.4 96.7,92.1'/%3E%3Cpath d='M16 0 L0 16'/%3E%3Cpath d='M184 0 L200 16'/%3E%3Cpath d='M0 184 L16 200'/%3E%3Cpath d='M200 184 L184 200'/%3E%3C/g%3E%3C/svg%3E");
+  --background-image-hero-fade: linear-gradient(transparent 35%, rgb(26 28 64 / 0.72));
+  --background-size-footer: 15rem;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6.25rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  min-height: 100vh;
 }

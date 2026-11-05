@@ -1,6 +1,17 @@
 # Auth
 
-Authentification email/password avec cookies.
+Authentification email/password avec cookies. Côté front : login **admin uniquement** sur `/lekeza/login`.
+
+## Routes front
+
+| Path | Accès | Notes |
+|------|--------|-------|
+| `/` | public | One-page événement (maquette) |
+| `/lekeza` | rôle `admin` | Espace admin (coming soon) |
+| `/lekeza/login` | public | Formulaire de connexion admin |
+| `/login` | redirect | → `/lekeza/login` |
+
+Pas d’inscription UI. Un utilisateur authentifié sans rôle `admin` est renvoyé vers `/`.
 
 ## Cookies
 
@@ -14,7 +25,7 @@ Authentification email/password avec cookies.
 
 | Méthode | Path | Auth | Notes |
 |---------|------|------|-------|
-| POST | `/api/auth/register` | public | CSRF exempt, rate-limit |
+| POST | `/api/auth/register` | public | CSRF exempt, rate-limit (API dormant côté UI) |
 | POST | `/api/auth/login` | public | CSRF exempt, rate-limit |
 | POST | `/api/auth/refresh` | refresh cookie | CSRF exempt |
 | POST | `/api/auth/logout` | JWT + CSRF | |
@@ -27,14 +38,24 @@ Authentification email/password avec cookies.
 
 ## Corps JSON
 
-Register / Login :
+Login :
 
 ```json
-{ "email": "user@example.com", "password": "********", "display_name": "Alice" }
+{ "email": "admin@example.com", "password": "********" }
 ```
 
-`display_name` optionnel à l’inscription.
+## Compte admin bootstrap (`ADMIN_*`)
 
-## Compte seed
+Variables dans `database/.env` (créées par `./scripts/setup-env.sh`) :
 
-Après init Postgres : `admin@example.com` / `change_me_admin_password` (rôle `admin`).
+| Variable | Rôle |
+|----------|------|
+| `ADMIN_EMAIL` | Email du compte admin |
+| `ADMIN_PASSWORD` | Mot de passe en clair **uniquement** dans `.env` (≥ 8 car.) |
+
+Flux (pattern foodyfly) :
+
+1. **1er init volume** : `00_admin_password.sh` pose les GUC Postgres → `01_schema.sql` crée l’utilisateur id `20000000-0000-4000-8000-000000000001` avec `crypt(..., gen_salt('bf', 14))` + rôle `admin` → `02_reset_admin_guc.sh` retire les GUC.
+2. **Chaque démarrage** : `sync-admin-password.sh` (via `postgres-entrypoint.sh`) réaligne email / hash bcrypt sur `ADMIN_*` si le volume existe déjà.
+
+Le mot de passe n’est **jamais** stocké en clair en base — uniquement `password_hash` bcrypt (cost 14), compatible avec le backend Go.

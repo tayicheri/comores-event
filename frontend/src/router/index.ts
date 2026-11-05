@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/auth'
 declare module 'vue-router' {
   interface RouteMeta {
     public?: boolean
+    requiresAdmin?: boolean
     title?: string
   }
 }
@@ -14,38 +15,62 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/views/LoginView.vue'),
-      meta: { public: true, title: 'Connexion' },
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('@/views/RegisterView.vue'),
-      meta: { public: true, title: 'Créer un compte' },
-    },
-    {
       path: '/',
-      name: 'home',
-      component: () => import('@/views/HomeView.vue'),
-      meta: { title: 'Accueil' },
+      name: 'landing',
+      component: () => import('@/views/LandingView.vue'),
+      meta: { public: true, title: 'L’esprit des îles' },
     },
-    { path: '/:pathMatch(.*)*', redirect: { name: 'home' } },
+    {
+      path: '/lekeza/login',
+      name: 'lekeza-login',
+      component: () => import('@/views/LoginView.vue'),
+      meta: { public: true, title: 'Connexion admin' },
+    },
+    {
+      path: '/lekeza',
+      name: 'lekeza',
+      component: () => import('@/views/AdminComingSoonView.vue'),
+      meta: { requiresAdmin: true, title: 'Admin' },
+    },
+    { path: '/login', redirect: { name: 'lekeza-login' } },
+    { path: '/:pathMatch(.*)*', redirect: { name: 'landing' } },
   ],
+  scrollBehavior(to) {
+    if (to.hash) {
+      return { el: to.hash, behavior: 'smooth' }
+    }
+    return { top: 0 }
+  },
 })
 
 router.beforeEach(async (to) => {
   const auth = useAuthStore()
   await auth.init()
 
+  if (to.name === 'lekeza-login') {
+    if (auth.isAdmin) return { name: 'lekeza' }
+    if (auth.isAuthenticated) return { name: 'landing' }
+    return true
+  }
+
   if (to.meta.public) {
-    return auth.isAuthenticated ? { name: 'home' } : true
+    return true
   }
-  if (!auth.isAuthenticated) {
-    return { name: 'login', query: to.fullPath !== '/' ? { redirect: to.fullPath } : undefined }
+
+  if (to.meta.requiresAdmin) {
+    if (!auth.isAuthenticated) {
+      return {
+        name: 'lekeza-login',
+        query: to.fullPath !== '/lekeza' ? { redirect: to.fullPath } : undefined,
+      }
+    }
+    if (!auth.isAdmin) {
+      return { name: 'landing' }
+    }
+    return true
   }
-  return true
+
+  return { name: 'landing' }
 })
 
 router.afterEach((to) => {

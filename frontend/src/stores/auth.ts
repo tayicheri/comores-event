@@ -2,7 +2,13 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import * as authApi from '@/api/auth'
 import { registerAuthHooks } from '@/api/client'
-import type { CurrentUser, LoginCredentials, RegisterPayload } from '@/types/auth'
+import type { CurrentUser, LoginCredentials } from '@/types/auth'
+
+function userIsAdmin(user: CurrentUser | null): boolean {
+  if (!user) return false
+  if (user.role === 'admin') return true
+  return Array.isArray(user.roles) && user.roles.includes('admin')
+}
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<CurrentUser | null>(null)
@@ -10,6 +16,7 @@ export const useAuthStore = defineStore('auth', () => {
   const isInitialized = ref(false)
 
   const isAuthenticated = computed(() => user.value !== null)
+  const isAdmin = computed(() => userIsAdmin(user.value))
   const displayName = computed(
     () => (typeof user.value?.display_name === 'string' ? user.value.display_name.trim() : '') || user.value?.email || '',
   )
@@ -51,18 +58,6 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  async function register(payload: RegisterPayload) {
-    loading.value = true
-    try {
-      await authApi.register(payload)
-      // Certaines API ouvrent la session à l'inscription : on tente de la récupérer.
-      user.value = await authApi.me().catch(() => null)
-      isInitialized.value = true
-    } finally {
-      loading.value = false
-    }
-  }
-
   async function logout() {
     try {
       await authApi.logout()
@@ -77,10 +72,12 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated: () => user.value !== null,
     onSessionExpired: () => {
       clearLocalSession()
-      // import dynamique : évite le cycle store <-> router
       void import('@/router').then(({ default: router }) => {
-        if (router.currentRoute.value.name !== 'login') {
-          void router.replace({ name: 'login', query: { redirect: router.currentRoute.value.fullPath } })
+        if (router.currentRoute.value.name !== 'lekeza-login') {
+          void router.replace({
+            name: 'lekeza-login',
+            query: { redirect: router.currentRoute.value.fullPath },
+          })
         }
       })
     },
@@ -91,11 +88,11 @@ export const useAuthStore = defineStore('auth', () => {
     loading,
     isInitialized,
     isAuthenticated,
+    isAdmin,
     displayName,
     init,
     fetchMe,
     login,
-    register,
     logout,
     clearLocalSession,
   }
