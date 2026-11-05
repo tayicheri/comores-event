@@ -10,6 +10,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/prometheus/client_golang v1.24.1
 	github.com/redis/go-redis/v9 v9.22.0
+	github.com/stripe/stripe-go/v82 v82.5.1
 	golang.org/x/crypto v0.55.0
 )
 

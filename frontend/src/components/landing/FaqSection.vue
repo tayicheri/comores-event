@@ -19,7 +19,7 @@ const items = [
   },
   {
     q: 'La billetterie est-elle déjà active ?',
-    a: 'Cette page est une maquette de démonstration. La réservation définitive sera activée après l’intégration de l’API de billetterie FOODYFLY.',
+    a: 'Oui. Vous pouvez choisir votre formule, renseigner vos coordonnées et régler par carte bancaire via Stripe. Un billet valide est créé dès confirmation du paiement.',
   },
 ]
 </script>

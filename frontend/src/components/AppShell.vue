@@ -14,7 +14,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Comores Event'
 <template>
   <div class="min-h-screen bg-canvas text-ink">
     <header class="border-b border-line bg-surface">
-      <div class="mx-auto flex h-14 max-w-5xl items-center justify-between px-4">
+      <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         <span class="text-sm font-semibold text-accent-700">{{ appName }}</span>
         <div class="flex items-center gap-3">
           <span v-if="userLabel" class="hidden text-sm text-ink-muted sm:inline">{{ userLabel }}</span>
@@ -23,7 +23,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Comores Event'
       </div>
     </header>
 
-    <main class="mx-auto max-w-5xl px-4 py-8">
+    <main class="mx-auto max-w-6xl px-4 py-8">
       <slot />
     </main>
   </div>

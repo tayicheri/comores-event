@@ -13,7 +13,7 @@ func ok() http.Handler {
 }
 
 func TestCSRF(t *testing.T) {
-	h := CSRF()(ok())
+	h := CSRF(CookieConfig{})(ok())
 
 	cases := []struct {
 		name   string

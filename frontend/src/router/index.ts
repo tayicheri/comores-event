@@ -29,7 +29,7 @@ const router = createRouter({
     {
       path: '/lekeza',
       name: 'lekeza',
-      component: () => import('@/views/AdminComingSoonView.vue'),
+      component: () => import('@/views/AdminDashboardView.vue'),
       meta: { requiresAdmin: true, title: 'Admin' },
     },
     { path: '/login', redirect: { name: 'lekeza-login' } },

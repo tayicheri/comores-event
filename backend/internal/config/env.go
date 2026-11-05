@@ -27,6 +27,11 @@ type Config struct {
 	CookieSecure  bool
 	IsProduction  bool
 	AllowedOrigin []string
+
+	StripeSecretKey        string
+	StripeWebhookSecret    string
+	TicketPriceDayCents    int
+	TicketPricePassCents   int
 }
 
 // RateLimits : nombre de requêtes autorisées par minute et par IP.
@@ -35,6 +40,7 @@ type RateLimits struct {
 	Register  int
 	Refresh   int
 	APIGlobal int
+	Payments  int
 }
 
 // DBConfig : paramètres PostgreSQL.
@@ -67,6 +73,7 @@ func Load() (*Config, error) {
 			Register:  getEnvInt("RATE_LIMIT_REGISTER", 5),
 			Refresh:   getEnvInt("RATE_LIMIT_REFRESH", 30),
 			APIGlobal: getEnvInt("RATE_LIMIT_API_GLOBAL", 300),
+			Payments:  getEnvInt("RATE_LIMIT_PAYMENTS", 20),
 		},
 		DB: DBConfig{
 			Host:    firstEnv([]string{"DB_HOST_POSTGRES", "DB_HOST"}, "db-postgres"),
@@ -76,6 +83,10 @@ func Load() (*Config, error) {
 			Name:    getEnv("DB_NAME", "postgres"),
 			SSLMode: getEnv("DB_SSLMODE", "disable"),
 		},
+		StripeSecretKey:      strings.TrimSpace(os.Getenv("STRIPE_SECRET_KEY")),
+		StripeWebhookSecret:  strings.TrimSpace(os.Getenv("STRIPE_WEBHOOK_SECRET")),
+		TicketPriceDayCents:  getEnvInt("TICKET_PRICE_DAY_CENTS", 2000),
+		TicketPricePassCents: getEnvInt("TICKET_PRICE_PASS_CENTS", 3000),
 	}
 	cfg.CookieSecure = cfg.IsProduction
 	cfg.AllowedOrigin = splitOrigins(cfg.FrontendURL)
@@ -92,6 +103,12 @@ func (c *Config) validate() error {
 	}
 	if c.IsProduction && len(c.JWTSecret) < 32 {
 		return fmt.Errorf("JWT_SECRET doit contenir au moins 32 caractères en production (actuel : %d)", len(c.JWTSecret))
+	}
+	if c.TicketPriceDayCents <= 0 || c.TicketPricePassCents <= 0 {
+		return errors.New("TICKET_PRICE_DAY_CENTS et TICKET_PRICE_PASS_CENTS doivent être > 0")
+	}
+	if c.IsProduction && c.StripeSecretKey == "" {
+		return errors.New("STRIPE_SECRET_KEY est obligatoire en production")
 	}
 	return nil
 }

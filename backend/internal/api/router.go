@@ -25,6 +25,7 @@ type Deps struct {
 	Limiter  ratelimit.Limiter
 	Users    repository.UserRepository
 	Sessions repository.SessionRepository
+	Billets  repository.BilletRepository
 	JWT      *auth.JWTManager
 	Proxies  *middleware.TrustedProxies
 }
@@ -44,6 +45,8 @@ func NewRouter(d Deps) http.Handler {
 	mux.Handle("GET /metrics", promhttp.Handler())
 
 	registerAuthRoutes(mux, d)
+	registerPaymentRoutes(mux, d)
+	registerAdminBilletRoutes(mux, d)
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
 		handlers.WriteError(w, http.StatusNotFound, "Ressource introuvable")
@@ -57,12 +60,14 @@ func NewRouter(d Deps) http.Handler {
 		return pattern
 	}
 
+	cookies := middleware.CookieConfig{Secure: d.Config.CookieSecure, Domain: d.Config.CookieDomain}
+
 	return middleware.Chain(mux,
 		middleware.Recovery(),
 		middleware.Logger(d.Proxies),
 		middleware.Metrics(resolve),
 		middleware.Cors(d.Config.AllowedOrigin),
-		middleware.CSRF(),
+		middleware.CSRF(cookies),
 		middleware.SecurityHeaders(d.Config.IsProduction),
 	)
 }

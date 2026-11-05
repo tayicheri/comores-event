@@ -76,6 +76,7 @@ func run() error {
 
 	users := repository.NewUserRepository(db)
 	sessions := repository.NewSessionRepository(db)
+	billets := repository.NewBilletRepository(db)
 
 	go purgeExpiredTokens(ctx, sessions)
 
@@ -86,6 +87,7 @@ func run() error {
 		Limiter:  limiter,
 		Users:    users,
 		Sessions: sessions,
+		Billets:  billets,
 		JWT:      auth.NewJWTManager(cfg.JWTSecret),
 		Proxies:  middleware.ParseTrustedProxies(cfg.TrustedProxy),
 	})

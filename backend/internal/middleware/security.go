@@ -2,9 +2,11 @@ package middleware
 
 import (
 	"crypto/subtle"
+	"log/slog"
 	"net/http"
 	"strings"
 
+	"comores-event-api/internal/auth"
 	"comores-event-api/internal/constants"
 )
 
@@ -30,12 +32,14 @@ func SecurityHeaders(isProduction bool) Middleware {
 }
 
 // CSRF applique le double-submit cookie : pour les méthodes non sûres, l'en-tête
-// X-XSRF-TOKEN doit égaler le cookie XSRF-TOKEN. login/register/refresh sont exemptés.
-func CSRF() Middleware {
+// X-XSRF-TOKEN doit égaler le cookie XSRF-TOKEN. login/register/refresh/webhook sont exemptés.
+// Sur les méthodes sûres, pose le cookie XSRF-TOKEN s'il est absent (checkout anonyme).
+func CSRF(cookies CookieConfig) Middleware {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			switch r.Method {
 			case http.MethodGet, http.MethodHead, http.MethodOptions, http.MethodTrace:
+				ensureCSRFCookie(w, r, cookies)
 				next.ServeHTTP(w, r)
 				return
 			}
@@ -54,4 +58,16 @@ func CSRF() Middleware {
 			next.ServeHTTP(w, r)
 		})
 	}
+}
+
+func ensureCSRFCookie(w http.ResponseWriter, r *http.Request, cookies CookieConfig) {
+	if c, err := r.Cookie(constants.CookieCSRF); err == nil && c.Value != "" {
+		return
+	}
+	token, err := auth.GenerateCSRFToken()
+	if err != nil {
+		slog.Error("csrf: génération token", "error", err)
+		return
+	}
+	http.SetCookie(w, cookies.base(constants.CookieCSRF, token, "/", constants.CSRFCookieTTL, false))
 }

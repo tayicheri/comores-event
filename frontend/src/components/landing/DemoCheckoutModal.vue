@@ -1,32 +1,77 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import LandingButton from './LandingButton.vue'
 import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
+import CheckoutBuyerForm from './checkout/CheckoutBuyerForm.vue'
+import CheckoutPaymentStep from './checkout/CheckoutPaymentStep.vue'
+import { EVENT_CONFIG, formatEuro } from './eventConfig'
+import type { BuyerForm, CheckoutSelection } from '@/types/payment'
 
 const props = defineProps<{
   open: boolean
-  lines: string[]
+  selection: CheckoutSelection | null
 }>()
 
 const emit = defineEmits<{ close: [] }>()
 
-function onKey(e: KeyboardEvent) {
-  if (e.key === 'Escape' && props.open) emit('close')
-}
+type Step = 'recap' | 'buyer' | 'payment' | 'success'
+
+const step = ref<Step>('recap')
+const buyer = ref<BuyerForm | null>(null)
+
+const lines = computed(() => {
+  const sel = props.selection
+  if (!sel) return [] as string[]
+  const formulaLabel =
+    sel.formula === 'day'
+      ? `Billet 1 journée — ${EVENT_CONFIG.dates[sel.day]}`
+      : 'Pass 2 jours — vendredi et samedi'
+  return [
+    formulaLabel,
+    `${sel.quantity} billet${sel.quantity > 1 ? 's' : ''} × ${formatEuro(sel.unit)}`,
+    `Total : ${formatEuro(sel.total)}`,
+  ]
+})
+
+const title = computed(() => {
+  switch (step.value) {
+    case 'buyer':
+      return 'Vos coordonnées'
+    case 'payment':
+      return 'Paiement sécurisé'
+    case 'success':
+      return 'Réservation confirmée'
+    default:
+      return 'Votre sélection est prête'
+  }
+})
 
 watch(
   () => props.open,
   (open) => {
     document.body.style.overflow = open ? 'hidden' : ''
+    if (open) {
+      step.value = 'recap'
+      buyer.value = null
+    }
   },
 )
+
+function onKey(e: KeyboardEvent) {
+  if (e.key === 'Escape' && props.open) emit('close')
+}
 
 onMounted(() => document.addEventListener('keydown', onKey))
 onUnmounted(() => {
   document.removeEventListener('keydown', onKey)
   document.body.style.overflow = ''
 })
+
+function onBuyerSubmit(payload: BuyerForm) {
+  buyer.value = payload
+  step.value = 'payment'
+}
 </script>
 
 <template>
@@ -37,7 +82,7 @@ onUnmounted(() => {
     @click.self="emit('close')"
   >
     <div
-      class="relative w-full max-w-modal rounded-card bg-surface p-panel text-center shadow-modal"
+      class="relative max-h-[min(92vh,44rem)] w-full max-w-modal overflow-y-auto rounded-card bg-surface p-panel text-center shadow-modal"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
@@ -50,20 +95,50 @@ onUnmounted(() => {
       >
         <LandingIcon name="x" class="size-icon-sm" />
       </button>
-      <div class="mx-auto mt-1 grid size-16 place-items-center rounded-full bg-gold text-forest" aria-hidden="true">
-        <LandingIcon name="star" class="size-7" />
+
+      <div
+        class="mx-auto mt-1 grid size-16 place-items-center rounded-full bg-gold text-forest"
+        aria-hidden="true"
+      >
+        <LandingIcon :name="step === 'success' ? 'star' : 'ticket'" class="size-7" />
       </div>
+
       <LandingSectionTitle id="modal-title" as="h2" size="modal" class="my-3">
-        Votre sélection est prête
+        {{ title }}
       </LandingSectionTitle>
-      <p class="text-sm leading-body text-ink-muted">Voici le récapitulatif de votre réservation :</p>
-      <div class="my-4 rounded-media bg-pale p-4 text-sm leading-relaxed font-semibold">
-        <div v-for="line in lines" :key="line">{{ line }}</div>
-      </div>
-      <p class="text-caption leading-body text-ink-muted">
-        Cette maquette ne déclenche aucun paiement. Le bouton final sera relié à la billetterie FOODYFLY via son API.
-      </p>
-      <LandingButton class="mt-3.5" @click="emit('close')">Revenir au salon</LandingButton>
+
+      <template v-if="step === 'recap'">
+        <p class="text-sm leading-body text-ink-muted">Voici le récapitulatif de votre réservation :</p>
+        <div class="my-4 rounded-media bg-pale p-4 text-sm leading-relaxed font-semibold">
+          <div v-for="line in lines" :key="line">{{ line }}</div>
+        </div>
+        <LandingButton class="mt-3.5" block @click="step = 'buyer'">Continuer</LandingButton>
+      </template>
+
+      <template v-else-if="step === 'buyer'">
+        <p class="mb-1 text-sm leading-body text-ink-muted">
+          Indiquez vos informations pour recevoir la confirmation.
+        </p>
+        <CheckoutBuyerForm @submit="onBuyerSubmit" @back="step = 'recap'" />
+      </template>
+
+      <template v-else-if="step === 'payment' && buyer && selection">
+        <CheckoutPaymentStep
+          :buyer="buyer"
+          :selection="selection"
+          :amount-label="formatEuro(selection.total)"
+          @back="step = 'buyer'"
+          @paid="step = 'success'"
+        />
+      </template>
+
+      <template v-else-if="step === 'success'">
+        <p class="text-sm leading-body text-ink-muted">
+          Merci ! Votre paiement a bien été enregistré. Un billet valide figure désormais dans
+          notre billetterie.
+        </p>
+        <LandingButton class="mt-4" block @click="emit('close')">Fermer</LandingButton>
+      </template>
     </div>
   </div>
 </template>

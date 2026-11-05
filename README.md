@@ -62,6 +62,9 @@ workers/          (vide)
 Grafana local : http://127.0.0.1:3001  
 Grafana public : domaine `CADDY_MONITORING_DOMAIN` (basic auth Caddy).
 
-## Auth (périmètre actuel)
+## Auth & billetterie
 
-Voir [`doc/auth.md`](doc/auth.md). Middlewares : Recovery, Logger, Metrics, CORS, CSRF, SecurityHeaders, rate-limit Redis.
+- Auth : [`doc/auth.md`](doc/auth.md)
+- Paiements Stripe / billets / admin : [`doc/payments.md`](doc/payments.md)
+
+Middlewares : Recovery, Logger, Metrics, CORS, CSRF, SecurityHeaders, rate-limit Redis.

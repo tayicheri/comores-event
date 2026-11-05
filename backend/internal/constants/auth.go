@@ -47,7 +47,8 @@ const (
 
 // CSRFExemptPaths liste les routes (POST) exemptées de la vérification CSRF.
 var CSRFExemptPaths = map[string]struct{}{
-	"/api/auth/login":    {},
-	"/api/auth/register": {},
-	"/api/auth/refresh":  {},
+	"/api/auth/login":       {},
+	"/api/auth/register":    {},
+	"/api/auth/refresh":     {},
+	"/api/webhooks/stripe":  {},
 }

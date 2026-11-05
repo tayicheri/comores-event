@@ -36,7 +36,7 @@ const days = [
 const steps = [
   { t: 'Choisissez votre formule', d: 'Une journée ou le week-end complet.' },
   { t: 'Composez votre visite', d: 'Votre journée et le nombre de personnes.' },
-  { t: 'Poursuivez votre réservation', d: 'La billetterie FOODYFLY prend le relais.' },
+  { t: 'Poursuivez votre réservation', d: 'Paiement sécurisé par carte bancaire.' },
 ]
 
 function dec() {
@@ -191,11 +191,11 @@ function checkout() {
         </div>
 
         <LandingButton block @click="checkout">
-          Poursuivre avec FOODYFLY
+          Réserver mes billets
           <LandingIcon name="arrow" class="size-icon-sm" />
         </LandingButton>
         <p class="mt-3.5 text-center text-xs text-ink-subtle">
-          Maquette · Intégration de l’API de paiement non active.
+          Paiement sécurisé · confirmation immédiate
         </p>
       </div>
     </LandingContainer>

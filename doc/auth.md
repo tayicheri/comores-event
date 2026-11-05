@@ -7,7 +7,7 @@ Authentification email/password avec cookies. Côté front : login **admin uniqu
 | Path | Accès | Notes |
 |------|--------|-------|
 | `/` | public | One-page événement (maquette) |
-| `/lekeza` | rôle `admin` | Espace admin (coming soon) |
+| `/lekeza` | rôle `admin` | Dashboard billetterie (liste + stats) |
 | `/lekeza/login` | public | Formulaire de connexion admin |
 | `/login` | redirect | → `/lekeza/login` |
 
