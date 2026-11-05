@@ -1,61 +1,94 @@
 <script setup lang="ts">
+import LandingButton from './LandingButton.vue'
 import LandingContainer from './LandingContainer.vue'
 import LandingEyebrow from './LandingEyebrow.vue'
 import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
+import { EVENT_CONFIG } from './eventConfig'
+
+const items = [
+  {
+    title: 'Patrimoine mondial',
+    body: 'Expositions vidéo et photographiques des biens comoriens inscrits au patrimoine mondial de l’humanité.',
+  },
+  {
+    title: 'Conférences & ateliers',
+    body: 'Conférences-débats et ateliers animés par des professionnels et des diplômés de l’Unesco.',
+  },
+  {
+    title: 'Danses traditionnelles',
+    body: 'Danses traditionnelles comoriennes.',
+  },
+  {
+    title: 'Gastronomie des îles',
+    body: 'Gastronomie comorienne : saveurs et traditions de nos îles.',
+  },
+  {
+    title: 'Concerts & spectacles',
+    body: 'Concert et spectacles musicaux.',
+  },
+]
 
 const days = [
-  {
-    label: 'SAMEDI',
-    num: '16',
-    year: 'JANVIER 2027',
-    title: 'Le plaisir de la découverte',
-    body: 'Salon, découvertes culturelles et gastronomiques : une première journée pour explorer les univers comoriens.',
-  },
-  {
-    label: 'DIMANCHE',
-    num: '17',
-    year: 'JANVIER 2027',
-    title: 'Le bonheur de se retrouver',
-    body: 'Rencontres, animations et découvertes : prolonger les échanges et partager de nouvelles histoires.',
-  },
+  { label: 'VENDREDI', num: '15', year: 'JANVIER 2027' },
+  { label: 'SAMEDI', num: '16', year: 'JANVIER 2027' },
 ]
 </script>
 
 <template>
   <section id="programme" class="bg-pale py-section-md md:py-section-lg lg:py-section">
-    <LandingContainer class="grid grid-cols-1 items-center gap-9 md:gap-split-md lg:grid-cols-program lg:gap-program">
+    <LandingContainer class="grid grid-cols-1 items-start gap-9 md:gap-split-md lg:grid-cols-program lg:gap-program">
       <div>
-        <LandingEyebrow>IL Y A 2 JOURNÉES</LandingEyebrow>
+        <LandingEyebrow>AU PROGRAMME</LandingEyebrow>
         <LandingSectionTitle size="program">
-          Deux jours. Une<br />culture à<br />partager.
+          Venez célébrer<br />notre patrimoine.
         </LandingSectionTitle>
         <p class="mt-5 max-w-program text-sm leading-relaxed text-ink-muted">
-          Venez pour une journée de découvertes, ou prenez le temps de vivre tout le week-end.
+          Un patrimoine à préserver, une histoire à transmettre, une culture à partager.
         </p>
-        <p class="mt-4 flex items-start gap-2 text-caption leading-relaxed text-ink-muted">
-          <LandingIcon name="info" class="mt-0.5 size-icon-md text-terracotta" />
-          Les horaires détaillés et les intervenants seront annoncés prochainement.
+        <p class="mt-4 text-eyebrow font-bold tracking-wide-label text-terracotta">
+          {{ EVENT_CONFIG.dateShort.toUpperCase() }} · NANTERRE
         </p>
+        <p class="mt-6 max-w-program text-nav leading-body text-ink-muted">
+          Rendez-vous les 15 et 16 janvier 2027 à Nanterre pour deux journées de découvertes, de rencontres et de
+          célébration.
+        </p>
+        <LandingButton href="#billetterie" class="mt-8">
+          Réserver · dès 20 €
+          <LandingIcon name="arrow" class="size-icon-sm" />
+        </LandingButton>
+
+        <div class="mt-10 grid gap-4 sm:grid-cols-2">
+          <article
+            v-for="day in days"
+            :key="day.num"
+            class="flex items-center gap-4 rounded-program bg-cream px-3.5 py-5 md:px-6 md:py-6"
+          >
+            <div class="flex min-w-20 flex-col items-center border-r border-line pr-3.5">
+              <span class="text-2xs font-extrabold tracking-kicker text-terracotta">{{ day.label }}</span>
+              <strong class="font-serif my-1 text-date-sm font-normal">{{ day.num }}</strong>
+              <small class="whitespace-nowrap text-2xs text-ink-subtle">{{ day.year }}</small>
+            </div>
+            <p class="m-0 text-nav text-ink-muted">Journée découverte & partage</p>
+          </article>
+        </div>
       </div>
 
-      <div class="grid gap-4">
-        <article
-          v-for="day in days"
-          :key="day.num"
-          class="flex items-center gap-4 rounded-program bg-cream px-3.5 py-5 md:gap-8 md:px-9 md:py-7"
+      <ol class="m-0 grid list-none gap-0 border-t border-line p-0">
+        <li
+          v-for="(item, index) in items"
+          :key="item.title"
+          class="grid grid-cols-step items-start gap-x-3.5 border-b border-line py-6"
         >
-          <div class="flex min-w-20 flex-col items-center border-r border-line pr-3.5 md:min-w-24 md:pr-6">
-            <span class="text-2xs font-extrabold tracking-kicker text-terracotta">{{ day.label }}</span>
-            <strong class="font-serif my-1 text-date-sm font-normal md:text-date">{{ day.num }}</strong>
-            <small class="whitespace-nowrap text-2xs text-ink-subtle">{{ day.year }}</small>
-          </div>
-          <div>
-            <LandingSectionTitle as="h3" size="subtitle" class="mb-2">{{ day.title }}</LandingSectionTitle>
-            <p class="m-0 text-eyebrow leading-body text-ink-muted md:text-nav">{{ day.body }}</p>
-          </div>
-        </article>
-      </div>
+          <span
+            class="row-span-2 grid size-7 place-items-center rounded-full border border-line-strong text-xs text-ink-muted"
+          >
+            {{ String(index + 1).padStart(2, '0') }}
+          </span>
+          <strong class="text-nav">{{ item.title }}</strong>
+          <p class="mt-1 text-nav leading-body text-ink-muted">{{ item.body }}</p>
+        </li>
+      </ol>
     </LandingContainer>
   </section>
 </template>

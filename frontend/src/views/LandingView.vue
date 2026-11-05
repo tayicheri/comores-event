@@ -28,7 +28,7 @@ function onCheckout(payload: {
   const formulaLabel =
     payload.formula === 'day'
       ? `Billet 1 journée — ${EVENT_CONFIG.dates[payload.day]}`
-      : 'Pass 2 jours — samedi et dimanche'
+      : 'Pass 2 jours — vendredi et samedi'
   modalLines.value = [
     formulaLabel,
     `${payload.quantity} billet${payload.quantity > 1 ? 's' : ''} × ${formatEuro(payload.unit)}`,
@@ -47,8 +47,8 @@ function onCheckout(payload: {
       <InfoStrip />
       <IntroSection />
       <UniversSection />
-      <ProgramSection />
       <HeritageSection />
+      <ProgramSection />
       <TicketSection @checkout="onCheckout" />
       <PracticalSection />
       <FaqSection />

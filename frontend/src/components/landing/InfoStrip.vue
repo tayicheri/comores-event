@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LandingContainer from './LandingContainer.vue'
 import LandingIcon from './LandingIcon.vue'
+import { EVENT_CONFIG } from './eventConfig'
 
 type IconName = 'calendar' | 'pin' | 'ticket'
 
@@ -13,7 +14,7 @@ const items: Array<{
   {
     icon: 'calendar',
     title: 'UN WEEK-END POUR SE RETROUVER',
-    body: 'Sam. 16 & dim. 17 janvier 2027',
+    body: 'Ven. 15 & sam. 16 janvier 2027',
   },
   {
     icon: 'pin',
@@ -48,7 +49,8 @@ const items: Array<{
         <div class="min-w-0">
           <strong class="block text-xs font-semibold tracking-label text-gold-muted">{{ item.title }}</strong>
           <p v-if="item.accentPrices" class="mt-2 text-nav">
-            <span class="text-gold">20 €</span> la journée · <span class="text-gold">30 €</span> les 2 jours
+            <span class="text-gold">{{ EVENT_CONFIG.prices.day }} €</span> la journée ·
+            <span class="text-gold">{{ EVENT_CONFIG.prices.pass }} €</span> les 2 jours
           </p>
           <p v-else class="mt-2 text-nav">{{ item.body }}</p>
         </div>

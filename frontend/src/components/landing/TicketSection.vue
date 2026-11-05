@@ -8,14 +8,14 @@ import LandingSectionTitle from './LandingSectionTitle.vue'
 import { EVENT_CONFIG, formatEuro, type TicketDay, type TicketFormula } from './eventConfig'
 
 const formula = ref<TicketFormula>('day')
-const day = ref<TicketDay>('samedi')
+const day = ref<TicketDay>('vendredi')
 const quantity = ref(1)
 
 const unit = computed(() => EVENT_CONFIG.prices[formula.value])
 const total = computed(() => unit.value * quantity.value)
 const isDayTicket = computed(() => formula.value === 'day')
 const summary = computed(() => {
-  const dayLabel = isDayTicket.value ? EVENT_CONFIG.dates[day.value] : 'Pass samedi + dimanche'
+  const dayLabel = isDayTicket.value ? EVENT_CONFIG.dates[day.value] : 'Pass vendredi + samedi'
   return `${quantity.value} billet${quantity.value > 1 ? 's' : ''} · ${formatEuro(unit.value)} / personne · ${dayLabel}`
 })
 
@@ -24,13 +24,13 @@ const emit = defineEmits<{
 }>()
 
 const formulas = [
-  { value: 'day' as const, title: '1 journée', price: 20, caption: 'Samedi ou dimanche, au choix' },
-  { value: 'pass' as const, title: 'Pass 2 jours', price: 30, caption: 'Samedi et dimanche' },
+  { value: 'day' as const, title: '1 journée', price: EVENT_CONFIG.prices.day, caption: 'Vendredi ou samedi, au choix' },
+  { value: 'pass' as const, title: 'Pass 2 jours', price: EVENT_CONFIG.prices.pass, caption: 'Vendredi et samedi' },
 ]
 
 const days = [
+  { value: 'vendredi' as const, label: 'Ven. 15 janvier' },
   { value: 'samedi' as const, label: 'Sam. 16 janvier' },
-  { value: 'dimanche' as const, label: 'Dim. 17 janvier' },
 ]
 
 const steps = [
@@ -88,7 +88,7 @@ function checkout() {
         <div class="mb-6 flex items-center justify-between gap-2.5">
           <LandingSectionTitle id="ticket-title" as="h3" size="panel">Choisir mes billets</LandingSectionTitle>
           <span class="whitespace-nowrap rounded-badge bg-gold-soft px-3.5 py-2 text-micro font-bold md:text-xs">
-            16 &amp; 17 JAN. 2027
+            {{ EVENT_CONFIG.dateBadge }}
           </span>
         </div>
 

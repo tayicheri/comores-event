@@ -3,6 +3,7 @@ import LandingButton from './LandingButton.vue'
 import LandingContainer from './LandingContainer.vue'
 import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
+import { EVENT_CONFIG } from './eventConfig'
 </script>
 
 <template>
@@ -13,7 +14,7 @@ import LandingSectionTitle from './LandingSectionTitle.vue'
       <div class="pt-5 md:py-2.5">
         <div class="flex items-center gap-3 text-xs font-bold tracking-kicker text-terracotta md:text-caption">
           <span class="inline-block h-0.5 w-kicker-bar bg-gold" aria-hidden="true" />
-          16 &amp; 17 JANVIER 2027 À NANTERRE
+          {{ EVENT_CONFIG.dateKicker }}
         </div>
         <LandingSectionTitle id="hero-title" as="h1" size="display" class="my-7 max-w-hero-copy md:my-10">
           Les Comores<br />à l’honneur.
@@ -55,7 +56,7 @@ import LandingSectionTitle from './LandingSectionTitle.vue'
           <p class="font-serif mb-1.5 text-subtitle font-normal italic leading-snug md:text-card">
             L’esprit des îles, le plaisir d’être ensemble.
           </p>
-          <span class="text-xs tracking-eyebrow">RENDEZ-VOUS LES 16 ET 17 JANVIER À NANTERRE</span>
+          <span class="text-xs tracking-eyebrow">{{ EVENT_CONFIG.dateOverlay }}</span>
         </div>
       </div>
     </LandingContainer>

@@ -3,6 +3,9 @@ import LandingContainer from './LandingContainer.vue'
 import LandingEyebrow from './LandingEyebrow.vue'
 import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
+import { EVENT_CONFIG } from './eventConfig'
+
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(EVENT_CONFIG.venue.address)}`
 </script>
 
 <template>
@@ -29,10 +32,12 @@ import LandingSectionTitle from './LandingSectionTitle.vue'
             <LandingIcon name="pin" class="size-icon-md" />
           </span>
           <div>
-            <LandingSectionTitle as="h3" size="panel" class="mt-0.5 mb-2.5">Salle des congrès</LandingSectionTitle>
-            <p class="text-nav leading-body text-ink-muted">118 rue du 8 Mai 1945, 92000 Nanterre, France</p>
+            <LandingSectionTitle as="h3" size="panel" class="mt-0.5 mb-2.5">
+              {{ EVENT_CONFIG.venue.name }}
+            </LandingSectionTitle>
+            <p class="text-nav leading-body text-ink-muted">{{ EVENT_CONFIG.venue.address }}</p>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=118+rue+du+8+Mai+1945+92000+Nanterre"
+              :href="mapsUrl"
               target="_blank"
               rel="noopener noreferrer"
               class="mt-2 inline-flex items-center gap-1 text-caption font-bold underline underline-offset-4"
@@ -42,13 +47,31 @@ import LandingSectionTitle from './LandingSectionTitle.vue'
             </a>
           </div>
         </div>
-        <div class="flex gap-4 pt-6">
+        <div class="flex gap-4 border-b border-line py-6">
           <span class="grid size-pin shrink-0 place-items-center rounded-full bg-hours text-forest" aria-hidden="true">
             <LandingIcon name="calendar" class="size-icon-md" />
           </span>
           <div>
-            <strong class="text-nav">Samedi 16 et dimanche 17 janvier 2027</strong>
+            <strong class="text-nav">Vendredi 15 et samedi 16 janvier 2027</strong>
             <p class="mt-1.5 text-caption text-ink-subtle">Horaires détaillés à venir.</p>
+          </div>
+        </div>
+        <div class="flex gap-4 pt-6">
+          <span class="grid size-pin shrink-0 place-items-center rounded-full bg-hours text-forest" aria-hidden="true">
+            <LandingIcon name="info" class="size-icon-md" />
+          </span>
+          <div>
+            <strong class="text-nav">Contact</strong>
+            <p class="mt-1.5 text-nav leading-body text-ink-muted">
+              <a
+                v-for="(phone, i) in EVENT_CONFIG.venue.phones"
+                :key="phone"
+                :href="`tel:${phone.replace(/\s/g, '')}`"
+                class="underline underline-offset-4"
+              >
+                {{ phone }}<template v-if="i < EVENT_CONFIG.venue.phones.length - 1"> / </template>
+              </a>
+            </p>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ const links = [
         <div>
           <LandingEyebrow tone="corail">COMORES EVENTS 2027</LandingEyebrow>
           <LandingSectionTitle size="footer" class="my-3.5">On se retrouve à Nanterre ?</LandingSectionTitle>
-          <p class="text-nav text-heritage-muted">16 &amp; 17 janvier 2027 · La culture nous unit.</p>
+          <p class="text-nav text-heritage-muted">15 &amp; 16 janvier 2027 · La culture nous unit.</p>
         </div>
         <LandingButton href="#billetterie" variant="yellow">
           Choisir mes billets

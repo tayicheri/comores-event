@@ -46,8 +46,9 @@ function toggleMenu() {
       </nav>
 
       <LandingButton href="#billetterie" compact class="ml-auto hidden sm:inline-flex md:ml-0">
-        Réserver ma visite
-        <LandingIcon name="arrow" class="size-icon-sm" />
+        <span class="md:hidden">Réserver</span>
+        <span class="hidden md:inline">Réserver ma visite</span>
+        <LandingIcon name="arrow" class="hidden size-icon-sm md:block" />
       </LandingButton>
 
       <button
