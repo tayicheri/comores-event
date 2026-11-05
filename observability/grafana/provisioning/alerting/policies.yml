@@ -1,0 +1,12 @@
+# Policy par défaut : toutes les alertes Grafana → App Email.
+apiVersion: 1
+
+policies:
+  - orgId: 1
+    receiver: App Email
+    group_by:
+      - grafana_folder
+      - alertname
+    group_wait: 30s
+    group_interval: 5m
+    repeat_interval: 4h

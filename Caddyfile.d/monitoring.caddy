@@ -1,0 +1,14 @@
+# Grafana (stack observabilité)
+# Prérequis : ./scripts/docker-observability.sh
+# GRAFANA_BASIC_AUTH_HASH est généré automatiquement dans .env à partir de GRAFANA_ADMIN_PASSWORD
+
+{$CADDY_MONITORING_DOMAIN} {
+	header X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+	basicauth {
+		{$GRAFANA_BASIC_AUTH_USER} {$GRAFANA_BASIC_AUTH_HASH}
+	}
+
+	reverse_proxy grafana:3000
+}

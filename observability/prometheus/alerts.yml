@@ -1,0 +1,41 @@
+groups:
+  - name: app-alerts
+    rules:
+      - alert: ApiDown
+        expr: probe_success{job="blackbox-api"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "API indisponible"
+          description: "Le probe /health/ready échoue depuis plus de 2 minutes."
+
+      - alert: ApiHighErrorRate
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m])) > 0.16
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Taux d'erreurs 5xx élevé sur l'API"
+          description: "Plus de 10 erreurs 5xx/min en moyenne sur 5 minutes."
+
+      - alert: HostMemoryHigh
+        expr: |
+          100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) > 90
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "RAM hôte élevée (> 90 %)"
+          description: "Moins de 10 % de RAM disponible sur le serveur."
+
+      - alert: HostDiskLow
+        expr: |
+          100 * (1 - node_filesystem_avail_bytes{mountpoint=~"/|/rootfs",fstype=~"ext4|xfs|btrfs|vfat"}
+            / node_filesystem_size_bytes{mountpoint=~"/|/rootfs",fstype=~"ext4|xfs|btrfs|vfat"}) > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Espace disque faible"
+          description: "Plus de 85 % du disque racine est utilisé."

@@ -1,0 +1,23 @@
+{
+	email {$CADDY_ACME_EMAIL}
+}
+
+{$CADDY_FRONTEND_DOMAIN} {
+	header X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	reverse_proxy web:80
+}
+
+{$CADDY_API_DOMAIN} {
+	header X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
+	header X-Content-Type-Options "nosniff"
+	header Referrer-Policy "strict-origin-when-cross-origin"
+	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+	@metrics path /metrics
+	respond @metrics 404
+
+	reverse_proxy api:8080
+}
+
+import ./Caddyfile.d/*.caddy

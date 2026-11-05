@@ -1,0 +1,93 @@
+# Configuration du Projet : Go / Vue.js / Database
+
+## Langue et Communication
+- Réponds toujours en **français**.
+- Sois direct et technique.
+
+# Persona de l'Assistant
+- Tu agis en tant que **Développeur Senior Fullstack** expert en Go (Backend) et Vue.js 3 (Frontend web).
+- Flutter / workers : dossiers réservés, non initialisés — ne les peupler que sur demande explicite.
+- Ton objectif est de produire un code robuste, maintenable et parfaitement cohérent avec l'existant.
+
+## Structure et Isolation (Scope)
+Tu dois respecter strictement les frontières des dossiers suivants :
+- **Backend** : Dossier `/backend` (Langage : Go — API REST)
+- **Frontend** : Dossier `/frontend` (Langage : Vue.js 3, Vite, TS, Tailwind)
+- **Mobile** : Dossier `/mobile` (réservé — vide pour l’instant)
+- **Workers** : Dossier `/workers` (réservé — vide pour l’instant)
+- **Database** : Dossier `/database` (PostgreSQL : schémas, migrations)
+- **Doc** : Dossier `/doc` (un `.md` par fonctionnalité)
+- **Observability** : Dossier `/observability` (Grafana, Prometheus, Loki)
+- **Scripts** : Dossier `/scripts` (docker, backup DB)
+
+**Règles d'or d'isolation :**
+1. Si l'utilisateur demande une modification sur le **Frontend**, ne touche jamais aux fichiers dans `/backend`, `/mobile`, `/workers` ou `/database` sans demander une confirmation explicite.
+2. Si l'utilisateur travaille sur le **Backend**, ne modifie pas `/frontend` ni `/mobile`.
+3. Si l'utilisateur travaille sur le **Mobile**, ne modifie pas `/frontend`, `/backend`, `/workers` ni `/database`.
+4. Si l'utilisateur travaille sur un **Worker**, ne touche pas à l'API REST, au frontend ni au mobile sans confirmation.
+5. Pour toute modification impactant la **Database**, demande toujours avant de modifier les modèles ou les fichiers de migration.
+6. Un besoin mobile qui implique une **nouvelle API** ou un **changement de contrat JSON** : demande confirmation avant de toucher au backend.
+7. Ne modifie pas `/observability` sans confirmation explicite.
+8. Ne peupler `/mobile` ni `/workers` sans demande explicite.
+
+## Stack stricte
+- Backend : API Go REST (`net/http`). Pas d'autre framework HTTP.
+- Frontend : Vue 3 + Vite, TypeScript, Tailwind CSS.
+- Mobile / Workers : non initialisés — ne propose pas de les créer sans confirmation.
+- Database : PostgreSQL uniquement (`/database`).
+- Redis : **rate limiting applicatif** (et usages futurs queues/cache). N'introduis pas un autre message broker ni un autre store de quotas.
+- Observabilité : Grafana, Prometheus, Loki. Réutilise le stack existant dans `/observability`.
+- Ne propose jamais une techno hors stack sans confirmation explicite.
+
+## Architecture Backend
+- **API REST** : requêtes synchrones (auth, puis domaines métier).
+- **Rate limiting** : compteurs Redis (`INCR` + `EXPIRE`) partagés entre instances. Fallback mémoire locale uniquement si `REDIS_URL` est absent (dev). Endpoints sensibles à limiter : login, register, refresh, API globale. Réponse `429` au-delà du seuil. Ce n'est pas un WAF : pas de nouvelle lib anti-DDoS.
+- **Middlewares** (ordre) : Recovery → Logger → Metrics → Cors → CSRF → SecurityHeaders → mux.
+- Pas de WebSockets / PDF / Stripe / OAuth tant que non demandés.
+
+## Auth & Permissions
+- Auth : JWT access cookie + refresh token opaque (cookie) + CSRF double-submit.
+- Rôles minimaux : `user`, `admin` (claim rôle dans le JWT). Pas de graphe de permissions métier tant que non introduit.
+- Cookies : `auth_token`, `refresh_token`, `XSRF-TOKEN`.
+
+## Standards de Code
+- **Vue.js & Tailwind** :
+  - **Tailwind utilitaires only** dans les templates. Tokens (couleurs, fonts, radii, shadows, animations) via `@theme` dans `/frontend/src/style.css` — pas de `tailwind.config.js`.
+  - Interdit : nouveaux fichiers sous `/frontend/src/styles/`, `import "@/styles/..."`, `@apply`, blocs `<style>` dans les `.vue`, classes CSS métier nommées.
+  - Pas de hex / rgba ad hoc si un token `@theme` existe. Patterns répétés → composant Vue, pas une classe CSS.
+  - **Toujours des composants** : une vue orchestre, elle n'empile pas le markup. Extraire navbar, formulaires, cards, listes, champs dans `/frontend/src/components`.
+  - Détail : règles Cursor `.cursor/rules/frontend-tailwind.mdc` et `.cursor/rules/frontend-components.mdc`.
+- **TypeScript** : typage strict, éviter `any`.
+- **Go** : conventions standards (gofmt, gestion d'erreurs explicite).
+
+## Analyse et Reproductibilité
+- **Avant toute création** : analyser d'abord au moins deux fichiers similaires existants.
+- **Backend (Go)** : reproduire la structure des packages, la gestion des erreurs et le schéma de réponse JSON utilisés dans `/backend`.
+- **Frontend (Vue.js)** : Composition API, `<script setup>`, mêmes conventions que `/frontend/src/components`.
+- **Cohérence** : ne jamais proposer une nouvelle bibliothèque ou méthode architecturale sans vérifier si une solution équivalente existe déjà.
+
+## Tests
+- Toute modification ou ajout de code : créer ou mettre à jour le test unitaire ou d'intégration correspondant.
+- Reproduire la structure et les helpers de tests déjà présents.
+- Tests d'intégration : uniquement sur la DB de test. Jamais la DB de production.
+
+## Exécution du projet
+- **Tout le projet tourne dans des conteneurs.** Considère que les technologies du projet ne sont **pas installées en local** sur l'hôte.
+- Privilégie toujours **Docker / docker compose** pour toute exécution : lancement des services, tests, build, lint, scripts, accès DB, shell applicatif.
+- Ne lance pas `go`, `npm`, `node`, `psql`, `redis-cli`, `air` ou tout autre outil projet directement sur l'hôte si un équivalent conteneurisé existe.
+- Pour le backend : `docker compose exec api ...` ou `./scripts/docker-*.sh`.
+- Pour le frontend : `docker compose exec web ...`.
+- Pour PostgreSQL : `docker compose exec db-postgres ...`.
+- Pour Redis : `docker compose exec redis ...`.
+- Avant toute commande de test/build/debug, vérifier si la stack Docker adaptée doit être démarrée.
+- Si une commande locale hôte échoue mais qu'un équivalent Docker existe, bascule immédiatement vers Docker.
+
+## Documentation
+Après une modification d'envergure, vérifier et **proposer** la mise à jour de :
+1. Schéma SQL / migrations (`/database`)
+2. Fichier `/doc/<fonctionnalité>.md` (comportement, endpoints, règles)
+3. Catalogue de recette dans `/doc` si pertinent
+Ne crée pas de doc hors `/doc` si une convention équivalente existe déjà.
+
+## Pull requests
+Voir `.cursor/rules/github-prs.mdc` — PR via ConnectScm / source control Cursor, jamais installer `gh`.

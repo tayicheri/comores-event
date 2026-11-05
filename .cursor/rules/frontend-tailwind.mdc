@@ -1,0 +1,41 @@
+---
+description: Frontend Vue — Tailwind utilitaires only, zéro CSS métier
+globs: frontend/**/*.{vue,ts,css}
+alwaysApply: false
+---
+
+# Frontend : Tailwind utilitaires only
+
+Cible : zéro CSS métier sur le frontend produit.
+
+## Obligatoire
+
+- Styles **uniquement** via classes utilitaires Tailwind dans le template (`class="flex gap-3 text-sm …"`).
+- Couleurs, fonts, radii, shadows, animations : tokens dans [`frontend/src/style.css`](frontend/src/style.css) (`@theme`).
+- Pas de hex / rgba ad hoc si un token `@theme` existe déjà.
+- Patterns répétés (boutons, cards, shell) → **composant Vue** dans `/frontend/src/components` (ou `ui/`), pas une classe CSS nommée.
+
+## Interdit
+
+- Nouveaux fichiers sous `frontend/src/styles/**`
+- `import "@/styles/..."`
+- `@apply`
+- Blocs `<style>` / `<style scoped>` dans les `.vue`
+- Nouvelles classes CSS nommées (BEM, etc.)
+- Sélectionneurs UI produit dans `style.css` (seul `@theme` + reset `body` / `#app` autorisés)
+
+## Hors scope
+
+- Styles injectés par des libs tierces.
+
+```vue
+<!-- ❌ BAD : classe métier + CSS externe -->
+<template>
+  <button class="btn-primary">Valider</button>
+</template>
+
+<!-- ✅ GOOD : utilitaires ou composant UI -->
+<template>
+  <PrimaryButton>Valider</PrimaryButton>
+</template>
+```

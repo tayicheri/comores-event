@@ -1,0 +1,29 @@
+---
+description: Le frontend Vue extrait toujours l’UI en composants
+globs: frontend/**/*.{vue,ts}
+alwaysApply: false
+---
+
+# Frontend : toujours des composants
+
+Une vue orchestre. Elle n’empile pas le markup d’une page.
+
+- Extraire navbar, formulaires, cards, listes, champs, icônes, bandeaux.
+- Un bloc = une responsabilité. Si le markup est répété ou lisible comme une section, c’est un composant dans `/frontend/src/components`.
+- Composition API + `<script setup>` + TypeScript strict, comme les composants existants.
+- Réutiliser un composant existant avant d’en créer un doublon.
+
+```vue
+<!-- ❌ BAD : navbar + formulaires inline dans la vue -->
+<template>
+  <header class="topbar">...</header>
+  <form>...</form>
+</template>
+
+<!-- ✅ GOOD : la vue compose -->
+<template>
+  <AppShell>
+    <LoginForm @success="goHome" />
+  </AppShell>
+</template>
+```

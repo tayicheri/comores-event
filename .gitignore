@@ -1,0 +1,132 @@
+# --- OS & IDE ---
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.idea/
+.vscode/*
+!.vscode/launch.json
+!.vscode/extensions.json
+**/.vscode/*
+!**/.vscode/launch.json
+*.swp
+*.swo
+*~
+.cursor/debug-*.log
+
+# --- Secrets & environnement ---
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.keystore
+secrets/
+
+# --- Logs & debug ---
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# --- Couverture & artefacts de test ---
+coverage/
+*.cover
+*.out
+*.test
+tmp/
+temp/
+
+# --- Backend (Go) ---
+backend/bin/
+backend/vendor/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.a
+/bin/
+
+# --- Workers (Go) ---
+workers/**/bin/
+workers/**/*.exe
+
+# --- Frontend (Vue 3 / Vite / Node) ---
+node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+*.local
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+*.tsbuildinfo
+
+# --- Mobile (Flutter / Dart) ---
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/.pub-cache/
+mobile/.pub/
+mobile/build/
+mobile/coverage/
+mobile/*.iml
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/android/app/debug/
+mobile/android/app/profile/
+mobile/android/app/release/
+mobile/android/**/gradle-wrapper.jar
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/ios/Flutter/Flutter.framework
+mobile/ios/Flutter/Flutter.podspec
+mobile/ios/Flutter/Generated.xcconfig
+mobile/ios/Flutter/ephemeral/
+mobile/ios/Flutter/flutter_export_environment.sh
+mobile/ios/ServiceDefinitions.json
+mobile/**/*.mode1v3
+mobile/**/*.mode2v3
+mobile/**/*.moved-aside
+mobile/**/*.pbxuser
+mobile/**/*.perspectivev3
+mobile/**/*sync/
+mobile/**/.sconsign.dblite
+mobile/**/.tags*
+mobile/**/.vagrant/
+mobile/**/*.hprof
+
+# --- Database ---
+database/data/
+database/*.sql.gz
+*.dump
+*.backup
+
+# --- Observability (données locales / volumes) ---
+observability/data/
+observability/**/data/
+observability/grafana/data/
+observability/prometheus/data/
+observability/loki/data/
+
+# --- Docker ---
+.docker/
+
+# --- Uploads & fichiers générés ---
+uploads/
+!uploads/.gitkeep
+.gocache/
+
+# --- Assets legacy (hors scaffold) ---
+Comores_Events_2027_Web/

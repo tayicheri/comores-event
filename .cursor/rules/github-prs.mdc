@@ -1,0 +1,13 @@
+---
+description: Les pull requests passent par GitHub connecté dans Cursor
+alwaysApply: true
+---
+
+# Pull requests via Cursor
+
+GitHub est déjà connecté dans Cursor (`ConnectScm` / source control).
+
+- Créer, lister et ouvrir les PR **via Cursor** (connexion GitHub intégrée).
+- **Ne jamais installer** `gh`, Homebrew, ni un binaire GitHub CLI.
+- **Ne jamais extraire** les credentials git pour appeler l’API GitHub.
+- Ne pas utiliser le navigateur isolé de l’agent pour créer une PR (session GitHub absente).

@@ -1,0 +1,128 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 75 },
+              { "color": "red", "value": 90 }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+      "id": 1,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto" },
+      "targets": [{
+        "expr": "100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)",
+        "legendFormat": "RAM utilisée",
+        "refId": "A"
+      }],
+      "title": "RAM VPS (%)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 70 },
+              { "color": "red", "value": 85 }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+      "id": 2,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto" },
+      "targets": [{
+        "expr": "100 * (1 - max(node_filesystem_avail_bytes{mountpoint=~\"/|/rootfs\",fstype=~\"ext4|xfs|btrfs|vfat\"}) / max(node_filesystem_size_bytes{mountpoint=~\"/|/rootfs\",fstype=~\"ext4|xfs|btrfs|vfat\"}))",
+        "legendFormat": "Disque /",
+        "refId": "A"
+      }],
+      "title": "Disque VPS / (%)",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "bytes" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+      "id": 3,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "textMode": "auto" },
+      "targets": [{
+        "expr": "max(node_filesystem_avail_bytes{mountpoint=~\"/|/rootfs\",fstype=~\"ext4|xfs|btrfs|vfat\"})",
+        "legendFormat": "Libre",
+        "refId": "A"
+      }],
+      "title": "Espace libre sur /",
+      "type": "stat"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "percent" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "id": 4,
+      "targets": [{
+        "expr": "100 * (1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)",
+        "legendFormat": "RAM %",
+        "refId": "A"
+      }],
+      "title": "RAM VPS — historique",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "percent" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "id": 5,
+      "targets": [{
+        "expr": "100 * (1 - max(node_filesystem_avail_bytes{mountpoint=~\"/|/rootfs\",fstype=~\"ext4|xfs|btrfs|vfat\"}) / max(node_filesystem_size_bytes{mountpoint=~\"/|/rootfs\",fstype=~\"ext4|xfs|btrfs|vfat\"}))",
+        "legendFormat": "Disque / %",
+        "refId": "A"
+      }],
+      "title": "Disque / — historique",
+      "type": "timeseries"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": { "defaults": { "unit": "percent" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 16 },
+      "id": 6,
+      "targets": [{
+        "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))",
+        "legendFormat": "CPU %",
+        "refId": "A"
+      }],
+      "title": "CPU VPS — historique",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["app", "host"],
+  "time": { "from": "now-6h", "to": "now" },
+  "title": "App — Hôte VPS",
+  "uid": "app-host",
+  "version": 1
+}

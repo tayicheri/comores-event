@@ -1,0 +1,71 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": { "type": "loki", "uid": "loki" },
+      "gridPos": { "h": 20, "w": 24, "x": 0, "y": 0 },
+      "id": 1,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "expr": "{container=\"app-api\"} | json | msg=\"http_request\" | method=~\"$method\" | user_id=~\"$user_id\" | path=~\".*$path.*\"",
+          "refId": "A"
+        }
+      ],
+      "title": "Requêtes HTTP API",
+      "type": "logs"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "tags": ["app", "logs"],
+  "templating": {
+    "list": [
+      {
+        "current": { "selected": true, "text": ".*", "value": ".*" },
+        "description": "ID utilisateur (nombre). Laisser .* pour tout afficher.",
+        "label": "User ID",
+        "name": "user_id",
+        "options": [{ "selected": true, "text": ".*", "value": ".*" }],
+        "query": ".*",
+        "type": "textbox"
+      },
+      {
+        "current": { "selected": true, "text": ".*", "value": ".*" },
+        "description": "Méthode HTTP en majuscules (GET, POST, …). Laisser .* pour tout afficher.",
+        "label": "Method",
+        "name": "method",
+        "options": [{ "selected": true, "text": ".*", "value": ".*" }],
+        "query": ".*",
+        "type": "textbox"
+      },
+      {
+        "current": { "selected": true, "text": "", "value": "" },
+        "description": "Recherche partielle sur le chemin (ex. orders, auth, catalog). Laisser vide pour tout afficher — .* est ajouté automatiquement avant et après.",
+        "label": "Path",
+        "name": "path",
+        "options": [{ "selected": true, "text": "", "value": "" }],
+        "query": "",
+        "type": "textbox"
+      }
+    ]
+  },
+  "time": { "from": "now-1h", "to": "now" },
+  "title": "App — Logs API",
+  "uid": "app-logs-api",
+  "version": 1
+}

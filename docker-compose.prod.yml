@@ -1,0 +1,136 @@
+# PRODUCTION UNIQUEMENT — ne pas fusionner avec docker-compose.yml
+# Usage : ./scripts/docker-prod.sh
+# Prérequis : database/.env, backend/.env, .env
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  pgadmin:
+    profiles:
+      - donotstart
+
+  db-postgres:
+    image: postgres:15-alpine
+    container_name: app-db-postgres
+    logging: *default-logging
+    restart: always
+    env_file:
+      - database/.env
+    expose:
+      - "5432"
+    volumes:
+      - ./database/init/postgres:/docker-entrypoint-initdb.d
+      - app-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - caddy_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: app-redis
+    logging: *default-logging
+    restart: always
+    expose:
+      - "6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - caddy_net
+
+  api:
+    build:
+      context: ./backend
+      target: prod
+    container_name: app-api
+    env_file:
+      - backend/.env
+    environment:
+      APP_ENV: production
+      REDIS_URL: redis://redis:6379/0
+      FRONTEND_URL: ${FRONTEND_URL:?définir FRONTEND_URL dans .env}
+      COOKIE_DOMAIN: ${COOKIE_DOMAIN:-}
+      TRUSTED_PROXIES: "true"
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - app-uploads:/app/uploads
+    expose:
+      - "8080"
+    restart: always
+    depends_on:
+      db-postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    logging: *default-logging
+    networks:
+      caddy_net:
+        aliases:
+          - api
+          - app-api
+
+  web:
+    build:
+      context: ./frontend
+      target: prod
+      args:
+        VITE_API_URL: ${VITE_API_URL:?définir VITE_API_URL dans .env}
+        VITE_APP_NAME: ${VITE_APP_NAME:-App}
+    container_name: app-web
+    logging: *default-logging
+    expose:
+      - "80"
+    restart: always
+    depends_on:
+      - api
+    networks:
+      - caddy_net
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: app-caddy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      CADDY_FRONTEND_DOMAIN: ${CADDY_FRONTEND_DOMAIN:?définir CADDY_FRONTEND_DOMAIN dans .env}
+      CADDY_API_DOMAIN: ${CADDY_API_DOMAIN:?définir CADDY_API_DOMAIN dans .env}
+      CADDY_MONITORING_DOMAIN: ${CADDY_MONITORING_DOMAIN:-}
+      CADDY_ACME_EMAIL: ${CADDY_ACME_EMAIL:-}
+      GRAFANA_BASIC_AUTH_USER: ${GRAFANA_BASIC_AUTH_USER:-admin}
+      GRAFANA_BASIC_AUTH_HASH: ${GRAFANA_BASIC_AUTH_HASH:-}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./Caddyfile.d:/etc/caddy/Caddyfile.d:ro
+      - app-caddy-data:/data
+      - app-caddy-config:/config
+    depends_on:
+      - web
+      - api
+    logging: *default-logging
+    networks:
+      - caddy_net
+
+networks:
+  caddy_net:
+    name: app_caddy_net
+    driver: bridge
+
+volumes:
+  app-pg-data:
+  app-caddy-data:
+  app-caddy-config:
+  app-uploads:

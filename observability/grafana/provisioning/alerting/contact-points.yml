@@ -1,0 +1,16 @@
+# Contact point e-mail — SMTP via GF_SMTP_* (GRAFANA_SMTP_ENABLED=true en prod).
+# Destinataire : GRAFANA_ALERT_EMAIL (défaut contact@app.fr).
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: App Email
+    receivers:
+      - uid: app-email
+        type: email
+        disableResolveMessage: false
+        settings:
+          addresses: $GRAFANA_ALERT_EMAIL
+          singleEmail: true
+          subject: |
+            [App] {{ .Status | toUpper }} — {{ .CommonLabels.alertname }}

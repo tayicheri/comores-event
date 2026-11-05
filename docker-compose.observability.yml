@@ -1,0 +1,164 @@
+# OBSERVABILITÉ — lancer à côté de la prod (réseau partagé caddy_net)
+# Usage : ./scripts/docker-observability.sh
+# Prérequis : stack prod démarrée au moins une fois (crée le réseau app_caddy_net)
+
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  loki:
+    image: grafana/loki:3.4.2
+    container_name: app-loki
+    logging: *default-logging
+    restart: always
+    command: -config.file=/etc/loki/loki-config.yml
+    volumes:
+      - ./observability/loki/loki-config.yml:/etc/loki/loki-config.yml:ro
+      - app-loki-data:/loki
+    expose:
+      - "3100"
+    networks:
+      - observability_net
+
+  promtail:
+    image: grafana/promtail:3.4.2
+    container_name: app-promtail
+    logging: *default-logging
+    restart: always
+    command: -config.file=/etc/promtail/promtail-config.yml
+    volumes:
+      - ./observability/promtail/promtail-config.yml:/etc/promtail/promtail-config.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    depends_on:
+      - loki
+    networks:
+      - observability_net
+
+  prometheus:
+    image: prom/prometheus:v3.2.1
+    container_name: app-prometheus
+    logging: *default-logging
+    restart: always
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=90d
+      - --web.enable-lifecycle
+    volumes:
+      - ./observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./observability/prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - app-prometheus-data:/prometheus
+    expose:
+      - "9090"
+    networks:
+      - observability_net
+      - caddy_net
+
+  blackbox:
+    image: prom/blackbox-exporter:v0.26.0
+    container_name: app-blackbox
+    logging: *default-logging
+    restart: always
+    command:
+      - --config.file=/etc/blackbox/blackbox.yml
+    volumes:
+      - ./observability/blackbox/blackbox.yml:/etc/blackbox/blackbox.yml:ro
+    expose:
+      - "9115"
+    networks:
+      - observability_net
+      - caddy_net
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.55.1
+    container_name: app-cadvisor
+    logging: *default-logging
+    restart: always
+    privileged: true
+    cgroup: host
+    command:
+      - --docker_only=true
+      - --store_container_labels=true
+      - --housekeeping_interval=30s
+      - --docker=unix:///var/run/docker.sock
+    volumes:
+      - /:/rootfs:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /var/lib/containerd:/var/lib/containerd:ro
+      - /dev/disk/:/dev/disk:ro
+    expose:
+      - "8080"
+    networks:
+      - observability_net
+
+  node-exporter:
+    image: prom/node-exporter:v1.9.0
+    container_name: app-node-exporter
+    logging: *default-logging
+    restart: always
+    pid: host
+    command:
+      - --path.procfs=/host/proc
+      - --path.sysfs=/host/sys
+      - --path.rootfs=/rootfs
+      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    expose:
+      - "9100"
+    networks:
+      - observability_net
+
+  grafana:
+    image: grafana/grafana:11.5.2
+    container_name: app-grafana
+    logging: *default-logging
+    restart: always
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?définir GRAFANA_ADMIN_PASSWORD dans .env}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_SERVER_ROOT_URL: ${GRAFANA_ROOT_URL:-http://localhost:3001}
+      GF_INSTALL_PLUGINS: ""
+      GF_SMTP_ENABLED: ${GRAFANA_SMTP_ENABLED:-false}
+      GF_SMTP_HOST: ${SMTP_HOST:-}:${SMTP_PORT:-587}
+      GF_SMTP_USER: ${SMTP_USER:-}
+      GF_SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      GF_SMTP_FROM_ADDRESS: ${SMTP_FROM_ADDRESS:-}
+      GF_SMTP_FROM_NAME: ${GRAFANA_SMTP_FROM_NAME:-App Monitoring}
+      GF_SMTP_STARTTLS_POLICY: ${GRAFANA_SMTP_STARTTLS_POLICY:-MandatoryStartTLS}
+      GRAFANA_ALERT_EMAIL: ${GRAFANA_ALERT_EMAIL:-ops@example.com}
+    volumes:
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - app-grafana-data:/var/lib/grafana
+    ports:
+      - "127.0.0.1:3001:3000"
+    depends_on:
+      - loki
+      - prometheus
+    networks:
+      - observability_net
+      - caddy_net
+
+networks:
+  observability_net:
+    driver: bridge
+  caddy_net:
+    external: true
+    name: app_caddy_net
+
+volumes:
+  app-loki-data:
+  app-prometheus-data:
+  app-grafana-data:

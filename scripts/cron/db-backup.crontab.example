@@ -1,0 +1,9 @@
+# Exemple crontab — sauvegardes PostgreSQL App
+# Installation automatique : ./scripts/install-db-backup-cron.sh
+
+TZ=<from_database_env>
+
+0 * * * * cd /chemin/vers/app-final && ./scripts/db-backup.sh hourly >> /var/log/app-db-backup.log 2>&1
+5 2 * * * cd /chemin/vers/app-final && ./scripts/db-backup.sh daily >> /var/log/app-db-backup.log 2>&1
+10 3 1 * * cd /chemin/vers/app-final && ./scripts/db-backup.sh monthly >> /var/log/app-db-backup.log 2>&1
+15 4 1 1 * cd /chemin/vers/app-final && ./scripts/db-backup.sh yearly >> /var/log/app-db-backup.log 2>&1
