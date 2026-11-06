@@ -23,8 +23,8 @@ function formatDate(iso: string): string {
 
 function daysLabel(b: Billet): string {
   const parts: string[] = []
-  if (b.day_vendredi) parts.push('Ven')
-  if (b.day_samedi) parts.push('Sam')
+  if (b.day_vendredi) parts.push('Sam')
+  if (b.day_samedi) parts.push('Dim')
   return parts.join(' + ') || '—'
 }
 

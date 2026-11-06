@@ -26,7 +26,7 @@ const lines = computed(() => {
   const formulaLabel =
     sel.formula === 'day'
       ? `Billet 1 journée — ${EVENT_CONFIG.dates[sel.day]}`
-      : 'Pass 2 jours — vendredi et samedi'
+      : 'Pass 2 jours — samedi et dimanche'
   return [
     formulaLabel,
     `${sel.quantity} billet${sel.quantity > 1 ? 's' : ''} × ${formatEuro(sel.unit)}`,

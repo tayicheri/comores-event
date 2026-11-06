@@ -14,7 +14,7 @@ const items: Array<{
   {
     icon: 'calendar',
     title: 'UN WEEK-END POUR SE RETROUVER',
-    body: 'Ven. 15 & sam. 16 janvier 2027',
+    body: 'Sam. 16 & dim. 17 janvier 2027',
   },
   {
     icon: 'pin',

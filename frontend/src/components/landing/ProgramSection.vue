@@ -30,8 +30,8 @@ const items = [
 ]
 
 const days = [
-  { label: 'VENDREDI', num: '15', year: 'JANVIER 2027' },
   { label: 'SAMEDI', num: '16', year: 'JANVIER 2027' },
+  { label: 'DIMANCHE', num: '17', year: 'JANVIER 2027' },
 ]
 </script>
 
@@ -50,10 +50,10 @@ const days = [
           {{ EVENT_CONFIG.dateShort.toUpperCase() }} · NANTERRE
         </p>
         <p class="mt-6 max-w-program text-nav leading-body text-ink-muted">
-          Rendez-vous les 15 et 16 janvier 2027 à Nanterre pour deux journées de découvertes, de rencontres et de
+          Rendez-vous les 16 et 17 janvier 2027 à Nanterre pour deux journées de découvertes, de rencontres et de
           célébration.
         </p>
-        <LandingButton href="#billetterie" class="mt-8">
+        <LandingButton href="#ticket-form" class="mt-8">
           Réserver · dès 20 €
           <LandingIcon name="arrow" class="size-icon-sm" />
         </LandingButton>

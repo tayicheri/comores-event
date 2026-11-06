@@ -11,6 +11,7 @@ defineProps<{
     | 'plus'
     | 'minus'
     | 'x'
+    | 'chevron'
 }>()
 </script>
 

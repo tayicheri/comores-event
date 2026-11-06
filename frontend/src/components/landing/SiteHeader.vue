@@ -10,6 +10,7 @@ const menuOpen = ref(false)
 const links = [
   { href: '#evenement', label: 'L’événement' },
   { href: '#univers', label: 'Les univers' },
+  { href: '#historique', label: 'Historique' },
   { href: '#programme', label: 'Le programme' },
   { href: '#infos', label: 'Infos pratiques' },
 ] as const
@@ -45,7 +46,7 @@ function toggleMenu() {
         </a>
       </nav>
 
-      <LandingButton href="#billetterie" compact class="ml-auto hidden sm:inline-flex md:ml-0">
+      <LandingButton href="#ticket-form" compact class="ml-auto hidden sm:inline-flex md:ml-0">
         <span class="md:hidden">Réserver</span>
         <span class="hidden md:inline">Réserver ma visite</span>
         <LandingIcon name="arrow" class="hidden size-icon-sm md:block" />

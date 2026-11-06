@@ -4,6 +4,7 @@ import DemoCheckoutModal from '@/components/landing/DemoCheckoutModal.vue'
 import FaqSection from '@/components/landing/FaqSection.vue'
 import HeritageSection from '@/components/landing/HeritageSection.vue'
 import HeroSection from '@/components/landing/HeroSection.vue'
+import HistorySection from '@/components/landing/HistorySection.vue'
 import InfoStrip from '@/components/landing/InfoStrip.vue'
 import IntroSection from '@/components/landing/IntroSection.vue'
 import LandingIconSprite from '@/components/landing/LandingIconSprite.vue'
@@ -11,6 +12,7 @@ import PracticalSection from '@/components/landing/PracticalSection.vue'
 import ProgramSection from '@/components/landing/ProgramSection.vue'
 import SiteFooter from '@/components/landing/SiteFooter.vue'
 import SiteHeader from '@/components/landing/SiteHeader.vue'
+import SponsorsSection from '@/components/landing/SponsorsSection.vue'
 import TicketSection from '@/components/landing/TicketSection.vue'
 import UniversSection from '@/components/landing/UniversSection.vue'
 import type { CheckoutSelection } from '@/types/payment'
@@ -34,9 +36,11 @@ function onCheckout(payload: CheckoutSelection) {
       <IntroSection />
       <UniversSection />
       <HeritageSection />
+      <HistorySection />
       <ProgramSection />
       <TicketSection @checkout="onCheckout" />
       <PracticalSection />
+      <SponsorsSection />
       <FaqSection />
     </main>
     <SiteFooter />

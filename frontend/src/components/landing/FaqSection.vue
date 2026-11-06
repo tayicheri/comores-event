@@ -6,7 +6,7 @@ import LandingSectionTitle from './LandingSectionTitle.vue'
 const items = [
   {
     q: 'Quelle formule choisir ?',
-    a: 'Le billet 1 journée est à 20 € par personne, avec le choix du vendredi 15 ou du samedi 16 janvier. Le pass 2 jours est à 30 € par personne pour profiter des deux journées.',
+    a: 'Le billet 1 journée est à 20 € par personne, avec le choix du samedi 16 ou du dimanche 17 janvier. Le pass 2 jours est à 30 € par personne pour profiter des deux journées.',
     open: true,
   },
   {

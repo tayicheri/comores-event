@@ -28,7 +28,7 @@ import { EVENT_CONFIG } from './eventConfig'
           Nanterre.
         </p>
         <div class="flex items-center gap-4 md:gap-5">
-          <LandingButton href="#billetterie">
+          <LandingButton href="#ticket-form">
             Choisir mes billets
             <LandingIcon name="arrow" class="size-icon-sm" />
           </LandingButton>

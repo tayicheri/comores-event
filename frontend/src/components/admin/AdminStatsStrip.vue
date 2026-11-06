@@ -33,11 +33,11 @@ function euro(cents: number): string {
       <p class="mt-1 font-serif text-2xl text-ink">{{ stats.used_count }}</p>
     </article>
     <article class="rounded-card border border-line bg-surface p-4 shadow-card">
-      <p class="text-2xs font-semibold tracking-eyebrow text-accent-700 uppercase">Vendredi</p>
+      <p class="text-2xs font-semibold tracking-eyebrow text-accent-700 uppercase">Samedi</p>
       <p class="mt-1 font-serif text-2xl text-ink">{{ stats.vendredi_places }}</p>
     </article>
     <article class="rounded-card border border-line bg-surface p-4 shadow-card">
-      <p class="text-2xs font-semibold tracking-eyebrow text-accent-700 uppercase">Samedi</p>
+      <p class="text-2xs font-semibold tracking-eyebrow text-accent-700 uppercase">Dimanche</p>
       <p class="mt-1 font-serif text-2xl text-ink">{{ stats.samedi_places }}</p>
     </article>
   </div>

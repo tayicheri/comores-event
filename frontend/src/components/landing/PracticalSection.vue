@@ -52,7 +52,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
             <LandingIcon name="calendar" class="size-icon-md" />
           </span>
           <div>
-            <strong class="text-nav">Vendredi 15 et samedi 16 janvier 2027</strong>
+            <strong class="text-nav">Samedi 16 et dimanche 17 janvier 2027</strong>
             <p class="mt-1.5 text-caption text-ink-subtle">Horaires détaillés à venir.</p>
           </div>
         </div>

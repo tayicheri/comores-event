@@ -16,7 +16,7 @@ import LandingSectionTitle from './LandingSectionTitle.vue'
           Une recette que l’on transmet. Un geste que l’on découvre. Une conversation qui rapproche.
         </p>
         <p class="max-w-intro text-sm leading-loose text-ink-muted">
-          Pour sa 2e édition, Comores Events vous invite à explorer le patrimoine comorien à travers ses couleurs, ses
+          Pour sa 2e édition, Comores Impact vous invite à explorer le patrimoine comorien à travers ses couleurs, ses
           savoir-faire et ses rencontres. Un rendez-vous ouvert aux curieux comme à celles et ceux qui souhaitent renouer
           avec leurs racines.
         </p>

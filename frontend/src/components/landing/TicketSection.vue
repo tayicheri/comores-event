@@ -15,7 +15,7 @@ const unit = computed(() => EVENT_CONFIG.prices[formula.value])
 const total = computed(() => unit.value * quantity.value)
 const isDayTicket = computed(() => formula.value === 'day')
 const summary = computed(() => {
-  const dayLabel = isDayTicket.value ? EVENT_CONFIG.dates[day.value] : 'Pass vendredi + samedi'
+  const dayLabel = isDayTicket.value ? EVENT_CONFIG.dates[day.value] : 'Pass samedi + dimanche'
   return `${quantity.value} billet${quantity.value > 1 ? 's' : ''} · ${formatEuro(unit.value)} / personne · ${dayLabel}`
 })
 
@@ -24,13 +24,13 @@ const emit = defineEmits<{
 }>()
 
 const formulas = [
-  { value: 'day' as const, title: '1 journée', price: EVENT_CONFIG.prices.day, caption: 'Vendredi ou samedi, au choix' },
-  { value: 'pass' as const, title: 'Pass 2 jours', price: EVENT_CONFIG.prices.pass, caption: 'Vendredi et samedi' },
+  { value: 'day' as const, title: '1 journée', price: EVENT_CONFIG.prices.day, caption: 'Samedi ou dimanche, au choix' },
+  { value: 'pass' as const, title: 'Pass 2 jours', price: EVENT_CONFIG.prices.pass, caption: 'Samedi et dimanche' },
 ]
 
 const days = [
-  { value: 'vendredi' as const, label: 'Ven. 15 janvier' },
-  { value: 'samedi' as const, label: 'Sam. 16 janvier' },
+  { value: 'vendredi' as const, label: 'Sam. 16 janvier' },
+  { value: 'samedi' as const, label: 'Dim. 17 janvier' },
 ]
 
 const steps = [
@@ -84,7 +84,11 @@ function checkout() {
         </ol>
       </div>
 
-      <div class="rounded-card border border-line bg-white p-4 shadow-card sm:p-6 md:p-panel" aria-labelledby="ticket-title">
+      <div
+        id="ticket-form"
+        class="rounded-card border border-line bg-white p-4 shadow-card sm:p-6 md:p-panel"
+        aria-labelledby="ticket-title"
+      >
         <div class="mb-6 flex items-center justify-between gap-2.5">
           <LandingSectionTitle id="ticket-title" as="h3" size="panel">Choisir mes billets</LandingSectionTitle>
           <span class="whitespace-nowrap rounded-badge bg-gold-soft px-3.5 py-2 text-micro font-bold md:text-xs">

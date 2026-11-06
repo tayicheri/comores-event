@@ -21,11 +21,11 @@ const links = [
         class="flex flex-col items-start justify-between gap-7 border-b border-strip-line pb-16 md:flex-row md:items-center"
       >
         <div>
-          <LandingEyebrow tone="corail">COMORES EVENTS 2027</LandingEyebrow>
+          <LandingEyebrow tone="corail">COMORES IMPACT 2027</LandingEyebrow>
           <LandingSectionTitle size="footer" class="my-3.5">On se retrouve à Nanterre ?</LandingSectionTitle>
-          <p class="text-nav text-heritage-muted">15 &amp; 16 janvier 2027 · La culture nous unit.</p>
+          <p class="text-nav text-heritage-muted">16 &amp; 17 janvier 2027 · La culture nous unit.</p>
         </div>
-        <LandingButton href="#billetterie" variant="yellow">
+        <LandingButton href="#ticket-form" variant="yellow">
           Choisir mes billets
           <LandingIcon name="arrow" class="size-icon-sm" />
         </LandingButton>
@@ -46,8 +46,8 @@ const links = [
       </div>
 
       <div class="flex flex-col justify-between gap-2 pt-4 text-eyebrow text-footer-muted md:flex-row md:gap-5">
-        <span>© 2027 Comores Events · La culture nous unit</span>
-        <span>Prototype de maquette · Paiement non actif</span>
+        <span>© 2027 Comores Impact · La culture nous unit</span>
+        <span>Site réalisé par Foodyfly</span>
       </div>
     </LandingContainer>
   </footer>

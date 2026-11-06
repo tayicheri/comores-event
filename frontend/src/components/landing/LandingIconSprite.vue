@@ -53,6 +53,16 @@
     <symbol id="i-minus" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M5 12h14" />
     </symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24">
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="m9 6 6 6-6 6"
+      />
+    </symbol>
     <symbol id="i-x" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
     </symbol>

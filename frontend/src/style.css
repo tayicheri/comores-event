@@ -246,6 +246,29 @@
   --grid-template-columns-step: 1.875rem 1fr;
   --grid-template-columns-cards: repeat(3, minmax(0, 1fr));
   --grid-template-columns-cards-md: repeat(2, minmax(0, 1fr));
+  --grid-template-columns-history: 0.85fr 1.15fr;
+
+  /* ——— Animations ——— */
+  --animate-slide-progress: slide-progress 5s linear forwards;
+  --animate-ken-burns: ken-burns 6s ease-out forwards;
+
+  @keyframes slide-progress {
+    from {
+      scale: 0 1;
+    }
+    to {
+      scale: 1 1;
+    }
+  }
+
+  @keyframes ken-burns {
+    from {
+      scale: 1.08;
+    }
+    to {
+      scale: 1;
+    }
+  }
 
   /* ——— Background images ——— */
   --background-image-footer-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpolygon points='100.0,78.0 103.3,92.1 115.6,84.4 107.9,96.7 122.0,100.0 107.9,103.3 115.6,115.6 103.3,107.9 100.0,122.0 96.7,107.9 84.4,115.6 92.1,103.3 78.0,100.0 92.1,96.7 84.4,84.4 96.7,92.1' fill='%23E6B54B' fill-opacity='0.03' stroke='none'/%3E%3Cg fill='none' stroke='%23E6B54B' stroke-width='1.15' stroke-linejoin='round' stroke-linecap='round' opacity='0.18'%3E%3Cpolygon points='100.0,54.0 146.0,100.0 100.0,146.0 54.0,100.0'/%3E%3Cpolygon points='67.5,67.5 132.5,67.5 132.5,132.5 67.5,132.5'/%3E%3Cpolygon points='100.0,78.0 103.3,92.1 115.6,84.4 107.9,96.7 122.0,100.0 107.9,103.3 115.6,115.6 103.3,107.9 100.0,122.0 96.7,107.9 84.4,115.6 92.1,103.3 78.0,100.0 92.1,96.7 84.4,84.4 96.7,92.1'/%3E%3Cpath d='M16 0 L0 16'/%3E%3Cpath d='M184 0 L200 16'/%3E%3Cpath d='M0 184 L16 200'/%3E%3Cpath d='M200 184 L184 200'/%3E%3C/g%3E%3C/svg%3E");
