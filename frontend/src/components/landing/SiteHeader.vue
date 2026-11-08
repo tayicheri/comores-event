@@ -9,9 +9,9 @@ const menuOpen = ref(false)
 
 const links = [
   { href: '#evenement', label: 'L’événement' },
-  { href: '#univers', label: 'Les univers' },
-  { href: '#historique', label: 'Historique' },
+  { href: '#patrimoine', label: 'Le patrimoine' },
   { href: '#programme', label: 'Le programme' },
+  { href: '#historique', label: 'Édition 2024' },
   { href: '#infos', label: 'Infos pratiques' },
 ] as const
 

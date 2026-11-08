@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 import DemoCheckoutModal from '@/components/landing/DemoCheckoutModal.vue'
 import FaqSection from '@/components/landing/FaqSection.vue'
-import HeritageSection from '@/components/landing/HeritageSection.vue'
 import HeroSection from '@/components/landing/HeroSection.vue'
 import HistorySection from '@/components/landing/HistorySection.vue'
 import InfoStrip from '@/components/landing/InfoStrip.vue'
@@ -14,7 +13,7 @@ import SiteFooter from '@/components/landing/SiteFooter.vue'
 import SiteHeader from '@/components/landing/SiteHeader.vue'
 import SponsorsSection from '@/components/landing/SponsorsSection.vue'
 import TicketSection from '@/components/landing/TicketSection.vue'
-import UniversSection from '@/components/landing/UniversSection.vue'
+import UnescoHeritageSection from '@/components/landing/UnescoHeritageSection.vue'
 import type { CheckoutSelection } from '@/types/payment'
 
 const modalOpen = ref(false)
@@ -34,11 +33,10 @@ function onCheckout(payload: CheckoutSelection) {
       <HeroSection />
       <InfoStrip />
       <IntroSection />
-      <UniversSection />
-      <HeritageSection />
-      <HistorySection />
+      <UnescoHeritageSection />
       <ProgramSection />
       <TicketSection @checkout="onCheckout" />
+      <HistorySection />
       <PracticalSection />
       <SponsorsSection />
       <FaqSection />

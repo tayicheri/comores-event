@@ -74,10 +74,8 @@
   --text-display-md: clamp(3.5rem, 11vw, 5.375rem); /* 56–86 */
   --text-section: clamp(2.9375rem, 4vw, 4.1875rem); /* 47–67 */
   --text-section-md: clamp(2.5rem, 8vw, 3.5rem); /* 40–56 */
-  --text-section-univers: clamp(2.5rem, 3.5vw, 3.5625rem); /* 40–57 */
   --text-section-program: clamp(3.0625rem, 4.5vw, 4.25rem); /* 49–68 */
   --text-section-ticket: clamp(3.25rem, 4.6vw, 4.25rem); /* 52–68 */
-  --text-section-heritage: clamp(2.6875rem, 4.1vw, 4rem); /* 43–64 */
   --text-section-practical: clamp(3rem, 4.3vw, 4rem); /* 48–64 */
   --text-section-faq: clamp(2.6875rem, 4vw, 3.8125rem); /* 43–61 */
   --text-section-footer: clamp(2.5rem, 4.3vw, 3.875rem); /* 40–62 */
@@ -97,10 +95,8 @@
   --text-display-md--line-height: 0.99;
   --text-section--line-height: 1.09;
   --text-section-md--line-height: 1.09;
-  --text-section-univers--line-height: 1.09;
   --text-section-program--line-height: 1.09;
   --text-section-ticket--line-height: 1.09;
-  --text-section-heritage--line-height: 1.16;
   --text-section-practical--line-height: 1.09;
   --text-section-faq--line-height: 1.09;
   --text-section-footer--line-height: 1.09;
@@ -140,8 +136,6 @@
   --spacing-heritage: 5.75rem; /* 92 */
   --spacing-heritage-sm: 4.0625rem; /* 65 */
   --spacing-footer-y: 4.875rem; /* 78 */
-  --spacing-univers-b: 7rem; /* 112 */
-  --spacing-univers-b-sm: 4.5rem; /* 72 */
   --spacing-container: 2.375rem; /* 38 */
   --spacing-container-md: 1.75rem; /* 28 */
   --spacing-container-sm: 1.375rem; /* 22 */
@@ -164,14 +158,8 @@
   --spacing-hero-img-sm: 21.875rem; /* 350 */
   --spacing-seal: 5.8125rem; /* 93 */
   --spacing-seal-sm: 4.375rem; /* 70 */
-  --spacing-card-img: 18.25rem; /* 292 */
-  --spacing-card-img-md: 14.375rem; /* 230 */
-  --spacing-card-img-sm: 13.75rem; /* 220 */
-  --spacing-card-img-wide: 20.625rem; /* 330 */
-  --spacing-card-img-xs: 15.9375rem; /* 255 */
-  --spacing-heritage-img: 27.8125rem; /* 445 */
-  --spacing-heritage-img-md: 21.875rem; /* 350 */
-  --spacing-heritage-img-sm: 18.75rem; /* 300 */
+  --spacing-unesco-row: 13.75rem; /* 220 */
+  --spacing-unesco-row-lg: 15.625rem; /* 250 */
   --spacing-kicker-bar: 1.5625rem; /* 25 */
   --spacing-btn-y: 0.875rem; /* 14 */
   --spacing-btn-x: 1.4375rem; /* 23 */
@@ -199,7 +187,6 @@
   --max-width-hero-desc: 28.125rem; /* 450 */
   --max-width-quote: 33.75rem; /* 540 */
   --max-width-intro: 34.375rem; /* 550 */
-  --max-width-univers-aside: 16.25rem; /* 260 */
   --max-width-program: 22.5rem; /* 360 */
   --max-width-ticket: 30rem; /* 480 */
   --max-width-ticket-desc: 26.875rem; /* 430 */
@@ -239,13 +226,10 @@
   --grid-template-columns-hero: 0.94fr 1fr;
   --grid-template-columns-split: 1fr 1fr;
   --grid-template-columns-program: 0.9fr 1.2fr;
-  --grid-template-columns-heritage: 1fr 0.99fr;
   --grid-template-columns-ticket: 0.85fr 1.16fr;
   --grid-template-columns-faq: 0.8fr 1.25fr;
   --grid-template-columns-strip: 1fr 1.2fr 0.7fr;
   --grid-template-columns-step: 1.875rem 1fr;
-  --grid-template-columns-cards: repeat(3, minmax(0, 1fr));
-  --grid-template-columns-cards-md: repeat(2, minmax(0, 1fr));
   --grid-template-columns-history: 0.85fr 1.15fr;
 
   /* ——— Animations ——— */

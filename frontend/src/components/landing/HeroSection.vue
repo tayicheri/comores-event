@@ -17,22 +17,22 @@ import { EVENT_CONFIG } from './eventConfig'
           {{ EVENT_CONFIG.dateKicker }}
         </div>
         <LandingSectionTitle id="hero-title" as="h1" size="display" class="my-7 max-w-hero-copy md:my-10">
-          Les Comores<br />à l’honneur.
+          <span class="mb-3 block text-subtitle tracking-normal italic text-terracotta md:mb-4 md:text-card">Les Comores,</span>
+          Un patrimoine<br />mondial à célébrer.
         </LandingSectionTitle>
         <p class="mb-3.5 text-lede font-semibold leading-lede">
           Salon de la culture et de la<br class="hidden sm:inline" />
           gastronomie comorienne
         </p>
         <p class="mb-6 max-w-hero-desc text-sm leading-body text-ink-muted md:text-body">
-          Deux journées pour découvrir, partager et célébrer. Toute la richesse d’une culture, le temps d’un week-end à
-          Nanterre.
+          Deux jours de célébration, de découverte et de partage autour de la richesse du patrimoine comorien.
         </p>
         <div class="flex items-center gap-4 md:gap-5">
           <LandingButton href="#ticket-form">
             Choisir mes billets
             <LandingIcon name="arrow" class="size-icon-sm" />
           </LandingButton>
-          <a href="#evenement" class="text-nav font-bold underline underline-offset-4">Explorer le salon</a>
+          <a href="#patrimoine" class="text-nav font-bold underline underline-offset-4">Découvrir le patrimoine</a>
         </div>
         <p class="mt-5 text-caption text-ink-subtle">Dès 20 € / personne · Pass 2 jours à 30 €</p>
       </div>
@@ -41,9 +41,9 @@ import { EVENT_CONFIG } from './eventConfig'
         class="relative h-hero-img-sm max-w-hero-copy overflow-hidden rounded-hero-sm bg-media sm:h-hero-img-md sm:w-full sm:rounded-hero-md lg:h-hero-img lg:rounded-hero"
       >
         <img
-          src="/landing/hero_moroni.jpg"
-          alt="Vue panoramique de Moroni, ses maisons et le littoral comorien"
-          class="size-full object-cover object-center saturate-75"
+          src="/landing/patrimoine/citadelle.jpg"
+          alt="Vue aérienne des remparts d’une citadelle comorienne surplombant la ville et l’océan"
+          class="size-full object-cover object-center"
         />
         <div class="pointer-events-none absolute inset-x-0 top-1/3 bottom-0 bg-hero-fade" />
         <span
@@ -54,7 +54,7 @@ import { EVENT_CONFIG } from './eventConfig'
         </span>
         <div class="absolute right-5 bottom-7 left-7 z-10 text-white">
           <p class="font-serif mb-1.5 text-subtitle font-normal italic leading-snug md:text-card">
-            L’esprit des îles, le plaisir d’être ensemble.
+            Un patrimoine à préserver, une histoire à transmettre.
           </p>
           <span class="text-xs tracking-eyebrow">{{ EVENT_CONFIG.dateOverlay }}</span>
         </div>

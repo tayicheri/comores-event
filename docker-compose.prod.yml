@@ -91,6 +91,7 @@ services:
       args:
         VITE_API_URL: ${VITE_API_URL:?définir VITE_API_URL dans .env}
         VITE_APP_NAME: ${VITE_APP_NAME:-App}
+        VITE_SITE_URL: ${FRONTEND_URL:?définir FRONTEND_URL dans .env}
     container_name: app-web
     logging: *default-logging
     expose:

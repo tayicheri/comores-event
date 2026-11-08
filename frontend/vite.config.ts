@@ -6,9 +6,21 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const devProxyTarget = env.VITE_DEV_PROXY_API || process.env.VITE_DEV_PROXY_API
+  const siteUrl = (env.VITE_SITE_URL || process.env.VITE_SITE_URL || '').replace(/\/$/, '')
+  const ogUrl = siteUrl || '/'
+  const ogImage = siteUrl ? `${siteUrl}/og-image.jpg` : '/og-image.jpg'
 
   return {
-    plugins: [vue(), tailwindcss()],
+    plugins: [
+      vue(),
+      tailwindcss(),
+      {
+        name: 'inject-open-graph-urls',
+        transformIndexHtml(html) {
+          return html.replaceAll('__OG_URL__', ogUrl).replaceAll('__OG_IMAGE__', ogImage)
+        },
+      },
+    ],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),

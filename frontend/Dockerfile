@@ -14,8 +14,10 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 ARG VITE_API_URL=http://localhost:8080
 ARG VITE_APP_NAME="Comores Event"
+ARG VITE_SITE_URL=
 ENV VITE_API_URL=$VITE_API_URL \
-    VITE_APP_NAME=$VITE_APP_NAME
+    VITE_APP_NAME=$VITE_APP_NAME \
+    VITE_SITE_URL=$VITE_SITE_URL
 COPY package.json package-lock.json* ./
 RUN npm install
 COPY . .

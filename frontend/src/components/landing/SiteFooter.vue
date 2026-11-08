@@ -8,6 +8,7 @@ import LandingSectionTitle from './LandingSectionTitle.vue'
 
 const links = [
   { href: '#evenement', label: 'L’événement' },
+  { href: '#patrimoine', label: 'Le patrimoine' },
   { href: '#programme', label: 'Le programme' },
   { href: '#billetterie', label: 'Billetterie' },
   { href: '#infos', label: 'Infos pratiques' },
@@ -23,7 +24,7 @@ const links = [
         <div>
           <LandingEyebrow tone="corail">COMORES IMPACT 2027</LandingEyebrow>
           <LandingSectionTitle size="footer" class="my-3.5">On se retrouve à Nanterre ?</LandingSectionTitle>
-          <p class="text-nav text-heritage-muted">16 &amp; 17 janvier 2027 · La culture nous unit.</p>
+          <p class="text-nav text-heritage-muted">16 &amp; 17 janvier 2027 · Un patrimoine mondial à célébrer.</p>
         </div>
         <LandingButton href="#ticket-form" variant="yellow">
           Choisir mes billets

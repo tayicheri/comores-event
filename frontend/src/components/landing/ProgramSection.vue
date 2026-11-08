@@ -41,7 +41,7 @@ const days = [
       <div>
         <LandingEyebrow>AU PROGRAMME</LandingEyebrow>
         <LandingSectionTitle size="program">
-          Venez célébrer<br />notre patrimoine.
+          Venez célébrer<br />notre patrimoine !
         </LandingSectionTitle>
         <p class="mt-5 max-w-program text-sm leading-relaxed text-ink-muted">
           Un patrimoine à préserver, une histoire à transmettre, une culture à partager.
@@ -50,8 +50,8 @@ const days = [
           {{ EVENT_CONFIG.dateShort.toUpperCase() }} · NANTERRE
         </p>
         <p class="mt-6 max-w-program text-nav leading-body text-ink-muted">
-          Rendez-vous les 16 et 17 janvier 2027 à Nanterre pour deux journées de découvertes, de rencontres et de
-          célébration.
+          Rendez-vous les 16 et 17 janvier 2027 à Nanterre pour deux jours de célébration, de découverte et de partage
+          autour de la richesse du patrimoine comorien.
         </p>
         <LandingButton href="#ticket-form" class="mt-8">
           Réserver · dès 20 €
@@ -81,11 +81,20 @@ const days = [
           class="grid grid-cols-step items-start gap-x-3.5 border-b border-line py-6"
         >
           <span
-            class="row-span-2 grid size-7 place-items-center rounded-full border border-line-strong text-xs text-ink-muted"
+            class="row-span-2 grid size-7 place-items-center rounded-full border text-xs"
+            :class="index === 0 ? 'border-gold bg-gold text-forest' : 'border-line-strong text-ink-muted'"
           >
             {{ String(index + 1).padStart(2, '0') }}
           </span>
-          <strong class="text-nav">{{ item.title }}</strong>
+          <strong class="inline-flex items-center gap-2 text-nav">
+            {{ item.title }}
+            <span
+              v-if="index === 0"
+              class="rounded-badge bg-forest px-2 py-0.5 text-2xs font-bold tracking-label text-gold"
+            >
+              TEMPS FORT
+            </span>
+          </strong>
           <p class="mt-1 text-nav leading-body text-ink-muted">{{ item.body }}</p>
         </li>
       </ol>

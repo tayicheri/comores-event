@@ -2,7 +2,7 @@
 withDefaults(
   defineProps<{
     as?: 'h1' | 'h2' | 'h3'
-    size?: 'display' | 'section' | 'univers' | 'program' | 'ticket' | 'heritage' | 'practical' | 'faq' | 'footer' | 'panel' | 'card' | 'modal' | 'subtitle'
+    size?: 'display' | 'section' | 'program' | 'ticket' | 'practical' | 'faq' | 'footer' | 'panel' | 'card' | 'modal' | 'subtitle'
   }>(),
   { as: 'h2', size: 'section' },
 )
@@ -10,10 +10,8 @@ withDefaults(
 const sizeClass: Record<string, string> = {
   display: 'font-serif text-display-md tracking-display font-normal md:text-display',
   section: 'font-serif text-section-md tracking-section font-normal lg:text-section',
-  univers: 'font-serif text-section-univers tracking-section font-normal',
   program: 'font-serif text-section-md tracking-section font-normal lg:text-section-program',
   ticket: 'font-serif text-section-md tracking-section font-normal lg:text-section-ticket',
-  heritage: 'font-serif text-section-md tracking-section font-normal leading-heritage lg:text-section-heritage',
   practical: 'font-serif text-section-md tracking-section font-normal lg:text-section-practical',
   faq: 'font-serif text-section-md tracking-section font-normal lg:text-section-faq',
   footer: 'font-serif text-section-footer tracking-section font-normal',
