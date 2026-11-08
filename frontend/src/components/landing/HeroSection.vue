@@ -3,7 +3,7 @@ import LandingButton from './LandingButton.vue'
 import LandingContainer from './LandingContainer.vue'
 import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
-import { EVENT_CONFIG } from './eventConfig'
+import { EVENT_CONFIG, KIDS_FREE_LABEL, formatEuro } from './eventConfig'
 </script>
 
 <template>
@@ -22,10 +22,11 @@ import { EVENT_CONFIG } from './eventConfig'
         </LandingSectionTitle>
         <p class="mb-3.5 text-lede font-semibold leading-lede">
           Salon de la culture et de la<br class="hidden sm:inline" />
-          gastronomie comorienne
+          gastronomie comorienne en France
         </p>
         <p class="mb-6 max-w-hero-desc text-sm leading-body text-ink-muted md:text-body">
-          Deux jours de célébration, de découverte et de partage autour de la richesse du patrimoine comorien.
+          Deux jours de célébration, de découverte et de partage autour de la richesse culturelle et patrimoniale de
+          six villes des Comores.
         </p>
         <div class="flex items-center gap-4 md:gap-5">
           <LandingButton href="#ticket-form">
@@ -34,15 +35,18 @@ import { EVENT_CONFIG } from './eventConfig'
           </LandingButton>
           <a href="#patrimoine" class="text-nav font-bold underline underline-offset-4">Découvrir le patrimoine</a>
         </div>
-        <p class="mt-5 text-caption text-ink-subtle">Dès 20 € / personne · Pass 2 jours à 30 €</p>
+        <p class="mt-5 text-caption text-ink-subtle">
+          Dès {{ formatEuro(EVENT_CONFIG.prices.day) }} / personne · Pass 2 jours à
+          {{ formatEuro(EVENT_CONFIG.prices.pass) }} · {{ KIDS_FREE_LABEL }}
+        </p>
       </div>
 
       <div
         class="relative h-hero-img-sm max-w-hero-copy overflow-hidden rounded-hero-sm bg-media sm:h-hero-img-md sm:w-full sm:rounded-hero-md lg:h-hero-img lg:rounded-hero"
       >
         <img
-          src="/landing/patrimoine/citadelle.jpg"
-          alt="Vue aérienne des remparts d’une citadelle comorienne surplombant la ville et l’océan"
+          src="/landing/patrimoine/mosquee-vendredi-moroni.jpg"
+          alt="La Grande Mosquée du Vendredi de Moroni, blanche à arcades, au bord du port"
           class="size-full object-cover object-center"
         />
         <div class="pointer-events-none absolute inset-x-0 top-1/3 bottom-0 bg-hero-fade" />

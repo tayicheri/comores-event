@@ -63,6 +63,16 @@
         d="m9 6 6 6-6 6"
       />
     </symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24">
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M5.5 3.5h3l1.5 4-2 1.2a11 11 0 0 0 5.3 5.3l1.2-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 3.5 5.7a2 2 0 0 1 2-2.2z"
+      />
+    </symbol>
     <symbol id="i-x" viewBox="0 0 24 24">
       <path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M6 6l12 12M18 6 6 18" />
     </symbol>

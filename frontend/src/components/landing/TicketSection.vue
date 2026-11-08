@@ -5,7 +5,7 @@ import LandingContainer from './LandingContainer.vue'
 import LandingEyebrow from './LandingEyebrow.vue'
 import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
-import { EVENT_CONFIG, formatEuro, type TicketDay, type TicketFormula } from './eventConfig'
+import { EVENT_CONFIG, KIDS_FREE_LABEL, formatEuro, type TicketDay, type TicketFormula } from './eventConfig'
 
 const formula = ref<TicketFormula>('day')
 const day = ref<TicketDay>('vendredi')
@@ -66,6 +66,12 @@ function checkout() {
         </LandingSectionTitle>
         <p class="max-w-ticket-desc leading-relaxed text-ink-muted">
           Une formule, une journée, le nombre de personnes. L’essentiel, simplement.
+        </p>
+        <p
+          class="mt-5 inline-flex items-center gap-2 rounded-badge bg-gold-soft px-3.5 py-2 text-caption font-bold text-forest"
+        >
+          <LandingIcon name="star" class="size-icon-sm text-ochre" />
+          {{ KIDS_FREE_LABEL }}
         </p>
         <ol class="mt-8 grid list-none gap-6 p-0">
           <li
@@ -199,7 +205,8 @@ function checkout() {
           <LandingIcon name="arrow" class="size-icon-sm" />
         </LandingButton>
         <p class="mt-3.5 text-center text-xs text-ink-subtle">
-          Paiement sécurisé · confirmation immédiate
+          Paiement sécurisé · confirmation immédiate · enfants de moins de {{ EVENT_CONFIG.kidsFreeUnder }} ans : sans
+          billet
         </p>
       </div>
     </LandingContainer>

@@ -12,6 +12,7 @@ defineProps<{
     | 'minus'
     | 'x'
     | 'chevron'
+    | 'phone'
 }>()
 </script>
 

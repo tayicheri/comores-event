@@ -11,6 +11,7 @@ const links = [
   { href: '#evenement', label: 'L’événement' },
   { href: '#patrimoine', label: 'Le patrimoine' },
   { href: '#programme', label: 'Le programme' },
+  { href: '#stand', label: 'Stand' },
   { href: '#historique', label: 'Édition 2024' },
   { href: '#infos', label: 'Infos pratiques' },
 ] as const
@@ -31,22 +32,22 @@ function toggleMenu() {
 
       <nav
         id="navigation"
-        class="max-md:absolute max-md:top-full max-md:right-0 max-md:left-0 max-md:flex-col max-md:items-stretch max-md:gap-0 max-md:bg-canvas max-md:px-6 max-md:py-3 max-md:shadow-nav md:flex md:items-center md:gap-nav-md lg:gap-nav"
-        :class="menuOpen ? 'flex' : 'hidden md:flex'"
+        class="max-lg:absolute max-lg:top-full max-lg:right-0 max-lg:left-0 max-lg:flex-col max-lg:items-stretch max-lg:gap-0 max-lg:bg-canvas max-lg:px-6 max-lg:py-3 max-lg:shadow-nav lg:flex lg:items-center lg:gap-nav-md xl:gap-nav"
+        :class="menuOpen ? 'flex' : 'hidden lg:flex'"
         aria-label="Navigation principale"
       >
         <a
           v-for="item in links"
           :key="item.href"
           :href="item.href"
-          class="text-nav font-medium hover:underline hover:underline-offset-4 max-md:border-t max-md:border-line max-md:py-3.5"
+          class="whitespace-nowrap text-nav font-medium hover:underline hover:underline-offset-4 max-lg:border-t max-lg:border-line max-lg:py-3.5"
           @click="closeMenu"
         >
           {{ item.label }}
         </a>
       </nav>
 
-      <LandingButton href="#ticket-form" compact class="ml-auto hidden sm:inline-flex md:ml-0">
+      <LandingButton href="#ticket-form" compact class="ml-auto hidden whitespace-nowrap sm:inline-flex lg:ml-0">
         <span class="md:hidden">Réserver</span>
         <span class="hidden md:inline">Réserver ma visite</span>
         <LandingIcon name="arrow" class="hidden size-icon-sm md:block" />
@@ -54,7 +55,7 @@ function toggleMenu() {
 
       <button
         type="button"
-        class="flex flex-col gap-1.5 border-0 bg-transparent p-2.5 md:hidden"
+        class="flex flex-col gap-1.5 border-0 bg-transparent p-2.5 lg:hidden"
         :aria-expanded="menuOpen"
         aria-controls="navigation"
         :aria-label="menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'"

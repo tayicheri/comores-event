@@ -21,9 +21,9 @@
   --color-ink: #34314b;
   --color-ink-muted: #5e5a74;
   --color-ink-subtle: #6e6a82;
-  --color-forest: #252756;
-  --color-forest-deep: #1a1c40;
-  --color-forest-hover: #34386c;
+  --color-forest: #1e5631;
+  --color-forest-deep: #143d22;
+  --color-forest-hover: #2a6e41;
   --color-gold: #e6b54b;
   --color-gold-soft: #f6e4b4;
   --color-gold-hover: #f0c96e;
@@ -31,11 +31,11 @@
   --color-corail: #df7866;
   --color-terracotta: #9a4e40;
   --color-ochre: #7f6429;
-  --color-strip-line: #3c406e;
-  --color-heritage-muted: #c9c4d8;
-  --color-heritage-body: #e7e1d6;
-  --color-footer-muted: #b7b2c8;
-  --color-footer-link: #c4bfd4;
+  --color-strip-line: #2f6b44;
+  --color-heritage-muted: #c4d6c9;
+  --color-heritage-body: #e3e9dc;
+  --color-footer-muted: #a9c0b0;
+  --color-footer-link: #bcd0c1;
   --color-white: #ffffff;
 
   /* Alias accent (auth / shell admin) */
@@ -43,8 +43,8 @@
   --color-accent-100: #f3ebda;
   --color-accent-500: #e6b54b;
   --color-accent-600: #d4a43d;
-  --color-accent-700: #252756;
-  --color-accent-800: #1a1c40;
+  --color-accent-700: #1e5631;
+  --color-accent-800: #143d22;
 
   --color-danger-50: #fef2f2;
   --color-danger-600: #dc2626;
@@ -230,6 +230,7 @@
   --grid-template-columns-faq: 0.8fr 1.25fr;
   --grid-template-columns-strip: 1fr 1.2fr 0.7fr;
   --grid-template-columns-step: 1.875rem 1fr;
+  --grid-template-columns-program-time: 4.5rem 1fr;
   --grid-template-columns-history: 0.85fr 1.15fr;
 
   /* ——— Animations ——— */
@@ -256,7 +257,7 @@
 
   /* ——— Background images ——— */
   --background-image-footer-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpolygon points='100.0,78.0 103.3,92.1 115.6,84.4 107.9,96.7 122.0,100.0 107.9,103.3 115.6,115.6 103.3,107.9 100.0,122.0 96.7,107.9 84.4,115.6 92.1,103.3 78.0,100.0 92.1,96.7 84.4,84.4 96.7,92.1' fill='%23E6B54B' fill-opacity='0.03' stroke='none'/%3E%3Cg fill='none' stroke='%23E6B54B' stroke-width='1.15' stroke-linejoin='round' stroke-linecap='round' opacity='0.18'%3E%3Cpolygon points='100.0,54.0 146.0,100.0 100.0,146.0 54.0,100.0'/%3E%3Cpolygon points='67.5,67.5 132.5,67.5 132.5,132.5 67.5,132.5'/%3E%3Cpolygon points='100.0,78.0 103.3,92.1 115.6,84.4 107.9,96.7 122.0,100.0 107.9,103.3 115.6,115.6 103.3,107.9 100.0,122.0 96.7,107.9 84.4,115.6 92.1,103.3 78.0,100.0 92.1,96.7 84.4,84.4 96.7,92.1'/%3E%3Cpath d='M16 0 L0 16'/%3E%3Cpath d='M184 0 L200 16'/%3E%3Cpath d='M0 184 L16 200'/%3E%3Cpath d='M200 184 L184 200'/%3E%3C/g%3E%3C/svg%3E");
-  --background-image-hero-fade: linear-gradient(transparent 35%, rgb(26 28 64 / 0.72));
+  --background-image-hero-fade: linear-gradient(transparent 35%, rgb(20 61 34 / 0.72));
   --background-size-footer: 15rem;
 }
 

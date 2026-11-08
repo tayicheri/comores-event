@@ -35,7 +35,7 @@ const faceBody =
               <div class="text-right">
                 <span class="font-serif text-sm font-bold italic">{{ brand }}</span>
                 <small class="block text-2xs tracking-[0.16em] text-gold-soft uppercase">
-                  Comores Event
+                  Salon comorien 2027
                 </small>
               </div>
             </div>

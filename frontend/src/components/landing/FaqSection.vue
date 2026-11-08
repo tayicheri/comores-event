@@ -2,6 +2,7 @@
 import LandingContainer from './LandingContainer.vue'
 import LandingEyebrow from './LandingEyebrow.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
+import { EVENT_CONFIG, formatEuro } from './eventConfig'
 
 const items = [
   {
@@ -10,12 +11,20 @@ const items = [
     open: true,
   },
   {
+    q: 'L’entrée est-elle payante pour les enfants ?',
+    a: `Non. L’entrée est gratuite pour les enfants de moins de ${EVENT_CONFIG.kidsFreeUnder} ans : inutile de leur réserver un billet.`,
+  },
+  {
     q: 'Où se déroule le salon ?',
     a: 'À la Salle des congrès, 118 rue du 8 Mai 1945, 92000 Nanterre, France.',
   },
   {
-    q: 'Quand connaître les horaires et les intervenants ?',
-    a: 'Les horaires détaillés, les artistes et les exposants seront annoncés par l’organisation avant le salon.',
+    q: 'Quels sont les horaires ?',
+    a: `Les stands ouvrent à ${EVENT_CONFIG.openingTime} le samedi 16 et le dimanche 17 janvier. Cérémonie d’ouverture, conférences, ateliers, danses et concerts : retrouvez tous les horaires dans la rubrique « Le programme ».`,
+  },
+  {
+    q: 'Comment réserver un stand ?',
+    a: `Le stand est à ${formatEuro(EVENT_CONFIG.standPrices.pass)} pour les deux jours ou ${formatEuro(EVENT_CONFIG.standPrices.day)} pour une journée. Pour réserver, contactez l’organisation au ${EVENT_CONFIG.venue.phones.join(' ou au ')}.`,
   },
   {
     q: 'La billetterie est-elle déjà active ?',

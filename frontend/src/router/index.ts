@@ -6,6 +6,7 @@ declare module 'vue-router' {
     public?: boolean
     requiresAdmin?: boolean
     title?: string
+    standaloneTitle?: boolean
   }
 }
 
@@ -18,7 +19,11 @@ const router = createRouter({
       path: '/',
       name: 'landing',
       component: () => import('@/views/LandingView.vue'),
-      meta: { public: true, title: 'L’esprit des îles' },
+      meta: {
+        public: true,
+        title: 'Salon de la culture et de la gastronomie comorienne en France',
+        standaloneTitle: true,
+      },
     },
     {
       path: '/lekeza/login',
@@ -74,6 +79,10 @@ router.beforeEach(async (to) => {
 })
 
 router.afterEach((to) => {
+  if (to.meta.title && to.meta.standaloneTitle) {
+    document.title = to.meta.title
+    return
+  }
   document.title = to.meta.title ? `${to.meta.title} · ${appName}` : appName
 })
 

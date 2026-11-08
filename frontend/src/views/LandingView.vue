@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import CultureHighlightsSection from '@/components/landing/CultureHighlightsSection.vue'
 import DemoCheckoutModal from '@/components/landing/DemoCheckoutModal.vue'
 import FaqSection from '@/components/landing/FaqSection.vue'
 import HeroSection from '@/components/landing/HeroSection.vue'
@@ -12,6 +13,7 @@ import ProgramSection from '@/components/landing/ProgramSection.vue'
 import SiteFooter from '@/components/landing/SiteFooter.vue'
 import SiteHeader from '@/components/landing/SiteHeader.vue'
 import SponsorsSection from '@/components/landing/SponsorsSection.vue'
+import StandSection from '@/components/landing/StandSection.vue'
 import TicketSection from '@/components/landing/TicketSection.vue'
 import UnescoHeritageSection from '@/components/landing/UnescoHeritageSection.vue'
 import type { CheckoutSelection } from '@/types/payment'
@@ -33,12 +35,14 @@ function onCheckout(payload: CheckoutSelection) {
       <HeroSection />
       <InfoStrip />
       <IntroSection />
+      <SponsorsSection />
       <UnescoHeritageSection />
+      <CultureHighlightsSection />
       <ProgramSection />
       <TicketSection @checkout="onCheckout" />
+      <StandSection />
       <HistorySection />
       <PracticalSection />
-      <SponsorsSection />
       <FaqSection />
     </main>
     <SiteFooter />

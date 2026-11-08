@@ -53,7 +53,10 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
           </span>
           <div>
             <strong class="text-nav">Samedi 16 et dimanche 17 janvier 2027</strong>
-            <p class="mt-1.5 text-caption text-ink-subtle">Horaires détaillés à venir.</p>
+            <p class="mt-1.5 text-caption text-ink-subtle">
+              Ouverture des stands à {{ EVENT_CONFIG.openingTime }} les deux jours ·
+              <a href="#programme" class="font-bold underline underline-offset-4">Voir le programme complet</a>
+            </p>
           </div>
         </div>
         <div class="flex gap-4 pt-6">

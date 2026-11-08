@@ -11,6 +11,7 @@ const links = [
   { href: '#patrimoine', label: 'Le patrimoine' },
   { href: '#programme', label: 'Le programme' },
   { href: '#billetterie', label: 'Billetterie' },
+  { href: '#stand', label: 'Stand' },
   { href: '#infos', label: 'Infos pratiques' },
 ] as const
 </script>
@@ -22,7 +23,7 @@ const links = [
         class="flex flex-col items-start justify-between gap-7 border-b border-strip-line pb-16 md:flex-row md:items-center"
       >
         <div>
-          <LandingEyebrow tone="corail">COMORES IMPACT 2027</LandingEyebrow>
+          <LandingEyebrow tone="corail">SALON DE LA CULTURE ET DE LA GASTRONOMIE COMORIENNE · 2027</LandingEyebrow>
           <LandingSectionTitle size="footer" class="my-3.5">On se retrouve à Nanterre ?</LandingSectionTitle>
           <p class="text-nav text-heritage-muted">16 &amp; 17 janvier 2027 · Un patrimoine mondial à célébrer.</p>
         </div>
@@ -47,7 +48,7 @@ const links = [
       </div>
 
       <div class="flex flex-col justify-between gap-2 pt-4 text-eyebrow text-footer-muted md:flex-row md:gap-5">
-        <span>© 2027 Comores Impact · La culture nous unit</span>
+        <span>© 2027 Salon de la culture et de la gastronomie comorienne en France</span>
         <span>Site réalisé par Foodyfly</span>
       </div>
     </LandingContainer>
