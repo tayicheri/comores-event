@@ -8,8 +8,8 @@ import type { SlideshowSlide } from './slideshow'
 const slides: SlideshowSlide[] = [
   {
     src: '/landing/salon-2024/01.jpg',
-    alt: 'Stand d’exposants au salon 2024 : mugs, carnets et créations artisanales',
-    caption: 'Papeterie et créations aux motifs wax.',
+    alt: 'Stand Baoperry au salon 2024 : mugs, stickers et créations illustrées inspirées des Comores',
+    caption: 'Baoperry — idées cadeaux et déco comorienne au style minimaliste.',
   },
   {
     src: '/landing/salon-2024/02.jpg',
