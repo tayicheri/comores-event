@@ -8,8 +8,11 @@ import AppShell from '@/components/AppShell.vue'
 import PrimaryButton from '@/components/PrimaryButton.vue'
 import { fetchAdminBillets, updateAdminBillet } from '@/api/billets'
 import { getErrorMessage } from '@/api/client'
+import { usePageSeo } from '@/composables/usePageSeo'
 import { useAuthStore } from '@/stores/auth'
 import type { Billet, BilletStats } from '@/types/payment'
+
+usePageSeo()
 
 const auth = useAuthStore()
 const router = useRouter()

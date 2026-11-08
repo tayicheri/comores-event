@@ -5,7 +5,10 @@ import AuthFormCard from '@/components/AuthFormCard.vue'
 import PrimaryButton from '@/components/PrimaryButton.vue'
 import TextField from '@/components/TextField.vue'
 import { getErrorMessage } from '@/api/client'
+import { usePageSeo } from '@/composables/usePageSeo'
 import { useAuthStore } from '@/stores/auth'
+
+usePageSeo()
 
 const auth = useAuthStore()
 const router = useRouter()

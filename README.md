@@ -66,5 +66,6 @@ Grafana public : domaine `CADDY_MONITORING_DOMAIN` (basic auth Caddy).
 
 - Auth : [`doc/auth.md`](doc/auth.md)
 - Paiements Stripe / billets / admin : [`doc/payments.md`](doc/payments.md)
+- Frontend SSG / SEO : [`doc/frontend-ssg.md`](doc/frontend-ssg.md)
 
 Middlewares : Recovery, Logger, Metrics, CORS, CSRF, SecurityHeaders, rate-limit Redis.

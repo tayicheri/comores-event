@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { usePageSeo } from '@/composables/usePageSeo'
 import CultureHighlightsSection from '@/components/landing/CultureHighlightsSection.vue'
 import DemoCheckoutModal from '@/components/landing/DemoCheckoutModal.vue'
 import FaqSection from '@/components/landing/FaqSection.vue'
@@ -17,6 +18,8 @@ import StandSection from '@/components/landing/StandSection.vue'
 import TicketSection from '@/components/landing/TicketSection.vue'
 import UnescoHeritageSection from '@/components/landing/UnescoHeritageSection.vue'
 import type { CheckoutSelection } from '@/types/payment'
+
+usePageSeo()
 
 const modalOpen = ref(false)
 const selection = ref<CheckoutSelection | null>(null)

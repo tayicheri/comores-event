@@ -50,7 +50,9 @@ const title = computed(() => {
 watch(
   () => props.open,
   (open) => {
-    document.body.style.overflow = open ? 'hidden' : ''
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = open ? 'hidden' : ''
+    }
     if (open) {
       step.value = 'recap'
       buyer.value = null

@@ -4,6 +4,7 @@ import LandingEyebrow from './LandingEyebrow.vue'
 import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
 import UnescoSiteCard from './UnescoSiteCard.vue'
+import UnescoSitesSlideshow from './UnescoSitesSlideshow.vue'
 import { HERITAGE_SITES } from './heritageSites'
 </script>
 
@@ -37,8 +38,10 @@ import { HERITAGE_SITES } from './heritageSites'
         </div>
       </div>
 
+      <UnescoSitesSlideshow class="sm:hidden" :sites="HERITAGE_SITES" />
+
       <div
-        class="grid grid-flow-row-dense grid-cols-1 auto-rows-(--spacing-unesco-row) gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-(--spacing-unesco-row-lg) lg:gap-5"
+        class="hidden grid-flow-row-dense auto-rows-(--spacing-unesco-row) gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4 lg:auto-rows-(--spacing-unesco-row-lg) lg:gap-5"
       >
         <UnescoSiteCard
           v-for="site in HERITAGE_SITES"

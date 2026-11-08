@@ -72,7 +72,14 @@ export const useAuthStore = defineStore('auth', () => {
     isAuthenticated: () => user.value !== null,
     onSessionExpired: () => {
       clearLocalSession()
-      void import('@/router').then(({ default: router }) => {
+      void import('@/router').then(({ getRouter }) => {
+        const router = getRouter()
+        if (!router) {
+          if (typeof window !== 'undefined') {
+            window.location.assign('/lekeza/login')
+          }
+          return
+        }
         if (router.currentRoute.value.name !== 'lekeza-login') {
           void router.replace({
             name: 'lekeza-login',

@@ -3,7 +3,6 @@
 }
 
 {$CADDY_FRONTEND_DOMAIN} {
-	header X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
 	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
 	reverse_proxy web:80
 }
