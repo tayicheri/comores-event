@@ -17,7 +17,7 @@ defineProps<{
 </script>
 
 <template>
-  <svg class="size-icon shrink-0 overflow-visible" aria-hidden="true">
+  <svg class="shrink-0 overflow-visible" aria-hidden="true">
     <use :href="`#i-${name}`" />
   </svg>
 </template>
