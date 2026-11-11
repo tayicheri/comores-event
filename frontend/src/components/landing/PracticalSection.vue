@@ -16,7 +16,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
         <LandingSectionTitle size="practical" class="mb-4">
           Les îles en esprit.<br />Nanterre en destination.
         </LandingSectionTitle>
-        <p class="max-w-practical text-sm leading-loose text-ink-muted">
+        <p class="max-w-practical text-base leading-loose text-ink-muted">
           L’immersion commence ici, en Île-de-France. Retrouvez-nous à la Salle des congrès pour deux journées consacrées
           à la culture et à la gastronomie comoriennes.
         </p>
@@ -35,7 +35,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
             <LandingSectionTitle as="h3" size="panel" class="mt-0.5 mb-2.5">
               {{ EVENT_CONFIG.venue.name }}
             </LandingSectionTitle>
-            <p class="text-nav leading-body text-ink-muted">{{ EVENT_CONFIG.venue.address }}</p>
+            <p class="text-sm leading-body text-ink-muted">{{ EVENT_CONFIG.venue.address }}</p>
             <a
               :href="mapsUrl"
               target="_blank"
@@ -65,7 +65,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
           </span>
           <div>
             <strong class="text-nav">Contact</strong>
-            <p class="mt-1.5 text-nav leading-body text-ink-muted">
+            <p class="mt-1.5 text-sm leading-body text-ink-muted">
               <a
                 v-for="(phone, i) in EVENT_CONFIG.venue.phones"
                 :key="phone"

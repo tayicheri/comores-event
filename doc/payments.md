@@ -9,7 +9,8 @@ Encaissement carte via Stripe PaymentIntent, création d’un billet après conf
 3. `POST /api/payments/intent` crée un PaymentIntent (montant **recalculé serveur**).
 4. Le front confirme la carte (`confirmCardPayment`), puis `POST /api/payments/confirm`.
 5. Un billet `status=valid` est inséré (idempotent sur `stripe_payment_intent_id`).
-6. Backup : webhook `POST /api/webhooks/stripe` (`payment_intent.succeeded`).
+6. Si le billet vient d’être créé et que SMTP est configuré : email de confirmation (texte + HTML) à l’acheteur. Un échec d’envoi est loggé ; le paiement / billet restent valides. Pas de second email sur re-confirm / webhook (idempotence `created=false`).
+7. Backup : webhook `POST /api/webhooks/stripe` (`payment_intent.succeeded`).
 
 Jours : `formula=pass` → `day_vendredi` et `day_samedi` à true ; `formula=day` → seul le jour choisi.
 
@@ -34,6 +35,13 @@ Jours : `formula=pass` → `day_vendredi` et `day_samedi` à true ; `formula=day
 | `TICKET_PRICE_DAY_CENTS` | Défaut `2000` (20 €) |
 | `TICKET_PRICE_PASS_CENTS` | Défaut `3000` (30 €) |
 | `RATE_LIMIT_PAYMENTS` | Défaut `20` / min / IP |
+| `SMTP_HOST` | Hôte SMTP (vide = emails désactivés) |
+| `SMTP_PORT` | Défaut `587` |
+| `SMTP_USER` / `SMTP_PASSWORD` | Auth SMTP (optionnel) |
+| `SMTP_FROM_ADDRESS` | Expéditeur client / marque (requis avec `SMTP_HOST`) |
+| `SMTP_FROM_NAME` | Défaut `Comores Event` |
+
+Ces variables SMTP sont **propres au backend** (emails acheteur). Elles sont distinctes du SMTP Grafana (alertes développeur).
 
 **Frontend** :
 

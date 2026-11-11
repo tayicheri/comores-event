@@ -11,6 +11,7 @@ import IntroSection from '@/components/landing/IntroSection.vue'
 import LandingIconSprite from '@/components/landing/LandingIconSprite.vue'
 import PracticalSection from '@/components/landing/PracticalSection.vue'
 import ProgramSection from '@/components/landing/ProgramSection.vue'
+import ScrollToTopButton from '@/components/landing/ScrollToTopButton.vue'
 import SiteFooter from '@/components/landing/SiteFooter.vue'
 import SiteHeader from '@/components/landing/SiteHeader.vue'
 import SponsorsSection from '@/components/landing/SponsorsSection.vue'
@@ -49,6 +50,7 @@ function onCheckout(payload: CheckoutSelection) {
       <FaqSection />
     </main>
     <SiteFooter />
+    <ScrollToTopButton />
     <DemoCheckoutModal :open="modalOpen" :selection="selection" @close="modalOpen = false" />
   </div>
 </template>

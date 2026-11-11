@@ -18,6 +18,7 @@ export const PARTNER_GROUPS: readonly PartnerGroup[] = Object.freeze([
       { name: 'Délégation permanente de l’Union des Comores auprès de l’UNESCO', src: `${LOGO_DIR}/delegation-unesco-comores.jpg` },
       { name: 'UNESCO · Convention du patrimoine mondial', src: `${LOGO_DIR}/unesco-patrimoine-mondial.png` },
       { name: 'Office national du tourisme des Comores', src: `${LOGO_DIR}/office-tourisme-comores.png` },
+      { name: 'Commissariat chargé de la diaspora', src: `${LOGO_DIR}/commissariat-diaspora.jpg` },
       { name: 'Ville de Nanterre', src: '/landing/logo-ville-nanterre.svg' },
     ],
   },

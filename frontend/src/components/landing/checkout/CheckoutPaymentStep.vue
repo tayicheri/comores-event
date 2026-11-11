@@ -74,7 +74,7 @@ async function pay() {
 
 <template>
   <div class="mt-2 grid gap-4">
-    <p class="m-0 text-sm text-ink-muted">
+    <p class="m-0 text-base text-ink-muted">
       Total à régler :
       <strong class="text-ink">{{ amountLabel || formatEuro(selection.total) }}</strong>
     </p>

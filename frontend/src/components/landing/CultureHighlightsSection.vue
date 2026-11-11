@@ -58,7 +58,7 @@ const highlights: Highlight[] = [
             :place="item.label"
             class="h-unesco-row lg:h-unesco-row-lg"
           />
-          <p class="mt-4 text-nav leading-body text-ink-muted">{{ item.body }}</p>
+          <p class="mt-4 text-base leading-body text-ink-muted">{{ item.body }}</p>
         </li>
       </ul>
     </LandingContainer>

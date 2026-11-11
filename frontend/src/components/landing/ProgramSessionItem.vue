@@ -19,14 +19,14 @@ defineProps<{
           TEMPS FORT
         </span>
       </strong>
-      <p v-if="session.description" class="mt-1.5 text-nav leading-body text-ink-muted">
+      <p v-if="session.description" class="mt-1.5 text-sm leading-body text-ink-muted">
         {{ session.description }}
       </p>
       <ul v-if="session.details?.length" class="mt-2.5 grid list-none gap-2 p-0">
         <li
           v-for="detail in session.details"
           :key="detail"
-          class="relative pl-4 text-nav leading-body text-ink-muted before:absolute before:top-2.5 before:left-0 before:size-1.5 before:rounded-full before:bg-gold"
+          class="relative pl-4 text-sm leading-body text-ink-muted before:absolute before:top-2.5 before:left-0 before:size-1.5 before:rounded-full before:bg-gold"
         >
           {{ detail }}
         </li>

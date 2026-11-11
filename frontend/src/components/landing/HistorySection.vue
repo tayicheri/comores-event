@@ -51,7 +51,7 @@ const slides: SlideshowSlide[] = [
         <template #intro>
           <LandingEyebrow tone="corail">ÉDITION 2024</LandingEyebrow>
           <LandingSectionTitle class="mb-5">Retour sur la première édition.</LandingSectionTitle>
-          <p class="m-0 max-w-intro text-sm leading-loose text-ink-muted">
+          <p class="m-0 max-w-intro text-base leading-loose text-ink-muted">
             Exposants, auteurs, artisans et visiteurs : en 2024, le salon a réuni toute une communauté autour de la
             culture comorienne. Quelques images pour se souvenir, avant d’écrire la suite ensemble.
           </p>

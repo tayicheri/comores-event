@@ -22,14 +22,14 @@ defineProps<{
       role="img"
       :aria-label="alt"
     >
-      <span class="rounded-badge bg-gold/20 px-2.5 py-1 text-2xs font-bold tracking-label text-gold">
+      <span class="rounded-badge bg-gold/20 px-2.5 py-1 text-xs font-bold tracking-label text-gold">
         PHOTO À VENIR
       </span>
     </div>
     <div class="pointer-events-none absolute inset-0 bg-hero-fade" />
     <figcaption class="absolute right-4 bottom-4 left-4 text-white md:right-5 md:bottom-5 md:left-5">
-      <span class="block text-2xs font-bold tracking-eyebrow text-gold">{{ place }}</span>
-      <span class="mt-1 block font-serif text-lede leading-snug">{{ name }}</span>
+      <span class="block text-caption font-bold tracking-eyebrow text-gold">{{ place }}</span>
+      <span class="mt-1.5 block font-serif text-lede leading-snug md:text-subtitle">{{ name }}</span>
     </figcaption>
   </figure>
 </template>

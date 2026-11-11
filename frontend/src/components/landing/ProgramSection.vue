@@ -26,7 +26,7 @@ const dayTagline: Record<ProgramDay['key'], string> = {
         <LandingSectionTitle size="program">
           Venez célébrer<br />notre patrimoine !
         </LandingSectionTitle>
-        <p class="mt-5 max-w-program text-sm leading-relaxed text-ink-muted">
+        <p class="mt-5 max-w-program text-base leading-relaxed text-ink-muted">
           Conférences, rencontres, animations culturelles, ateliers et concerts : le programme complet des deux
           journées.
         </p>

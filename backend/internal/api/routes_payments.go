@@ -5,6 +5,7 @@ import (
 
 	"comores-event-api/internal/constants"
 	"comores-event-api/internal/handlers"
+	"comores-event-api/internal/mail"
 	"comores-event-api/internal/middleware"
 	"comores-event-api/internal/payments"
 )
@@ -15,7 +16,8 @@ func registerPaymentRoutes(mux *http.ServeMux, d Deps) {
 		DayCents:  d.Config.TicketPriceDayCents,
 		PassCents: d.Config.TicketPricePassCents,
 	}
-	h := handlers.NewPaymentHandler(d.Billets, stripeClient, pricing, d.Config.StripeWebhookSecret)
+	mailer := mail.NewFromConfig(d.Config.SMTP)
+	h := handlers.NewPaymentHandler(d.Billets, stripeClient, pricing, mailer, d.Config.StripeWebhookSecret)
 
 	rl := d.Config.RateLimitCfg
 	global := middleware.RateLimit(d.Limiter, d.Proxies, "api", rl.APIGlobal, rateWindow)

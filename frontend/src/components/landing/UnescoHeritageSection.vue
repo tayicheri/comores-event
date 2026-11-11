@@ -26,12 +26,12 @@ import { HERITAGE_SITES } from './heritageSites'
           </LandingSectionTitle>
         </div>
         <div>
-          <p class="max-w-intro text-sm leading-heritage text-heritage-body">
+          <p class="max-w-intro text-base leading-heritage text-heritage-body">
             Cœur de cette 2e édition, les biens comoriens inscrits au patrimoine mondial de l’humanité seront à
             l’honneur à travers des expositions vidéo et photographiques, des conférences-débats et des ateliers animés
             par des spécialistes du patrimoine et des représentants de l’UNESCO.
           </p>
-          <p class="mt-5 inline-flex items-center gap-2 text-nav">
+          <p class="mt-5 inline-flex items-center gap-2 text-sm">
             <LandingIcon name="star" class="size-icon-sm text-gold" />
             Venez célébrer notre patrimoine !
           </p>
@@ -53,7 +53,7 @@ import { HERITAGE_SITES } from './heritageSites'
           :class="site.layout"
         />
       </div>
-      <p class="mt-5 text-xs text-heritage-muted">
+      <p class="mt-5 text-sm text-heritage-muted">
         Sites patrimoniaux de Moroni, Iconi, Itsandra, Domoni, Mutsamudu et Ntsoudjini présentés lors des expositions
         du Salon.
       </p>

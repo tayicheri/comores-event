@@ -9,10 +9,20 @@ import (
 	"testing"
 	"time"
 
+	"comores-event-api/internal/mail"
 	"comores-event-api/internal/models"
 	"comores-event-api/internal/payments"
 	"comores-event-api/internal/repository"
 )
+
+type recordingMailer struct {
+	n int
+}
+
+func (m *recordingMailer) SendTicketConfirmation(_ context.Context, _ *models.Billet) error {
+	m.n++
+	return nil
+}
 
 type fakeStripe struct {
 	createID     string
@@ -92,6 +102,7 @@ func TestCreateIntent(t *testing.T) {
 		&memBillets{},
 		fakeStripe{createID: "pi_1", createSecret: "sec_1", createStatus: "requires_payment_method"},
 		payments.PricingConfig{DayCents: 2000, PassCents: 3000},
+		mail.NopMailer{},
 		"",
 	)
 	body := `{"first_name":"Amina","last_name":"Said","email":"a@example.com","city":"Moroni","formula":"day","day":"vendredi","quantity":2}`
@@ -112,6 +123,7 @@ func TestCreateIntent(t *testing.T) {
 
 func TestConfirmIdempotent(t *testing.T) {
 	store := &memBillets{}
+	mailer := &recordingMailer{}
 	meta := payments.BuildMetadata(models.CreateBilletInput{
 		FirstName: "Amina", LastName: "Said", Email: "a@example.com", City: "Moroni",
 		Quantity: 1, DayVendredi: true, AmountCents: 2000, StripePaymentIntentID: "pi_ok",
@@ -124,6 +136,7 @@ func TestConfirmIdempotent(t *testing.T) {
 			retrieveMeta:   meta,
 		},
 		payments.PricingConfig{DayCents: 2000, PassCents: 3000},
+		mailer,
 		"",
 	)
 	body := `{"payment_intent_id":"pi_ok"}`
@@ -137,5 +150,8 @@ func TestConfirmIdempotent(t *testing.T) {
 	}
 	if len(store.byPI) != 1 {
 		t.Fatalf("want 1 billet, got %d", len(store.byPI))
+	}
+	if mailer.n != 1 {
+		t.Fatalf("want 1 email, got %d", mailer.n)
 	}
 }

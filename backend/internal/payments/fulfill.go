@@ -3,9 +3,11 @@ package payments
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"strconv"
 	"strings"
 
+	"comores-event-api/internal/mail"
 	"comores-event-api/internal/models"
 	"comores-event-api/internal/repository"
 )
@@ -71,11 +73,26 @@ func InputFromMetadata(paymentIntentID string, meta map[string]string) (models.C
 }
 
 // FulfillSucceeded crée le billet si le PI est succeeded (idempotent).
-func FulfillSucceeded(ctx context.Context, billets repository.BilletRepository, paymentIntentID string, meta map[string]string) (*models.Billet, error) {
+// Envoie un email de confirmation uniquement lors d'une création effective.
+func FulfillSucceeded(
+	ctx context.Context,
+	billets repository.BilletRepository,
+	mailer mail.Mailer,
+	paymentIntentID string,
+	meta map[string]string,
+) (*models.Billet, error) {
 	in, err := InputFromMetadata(paymentIntentID, meta)
 	if err != nil {
 		return nil, err
 	}
-	b, _, err := billets.CreateIfAbsent(ctx, in)
-	return b, err
+	b, created, err := billets.CreateIfAbsent(ctx, in)
+	if err != nil {
+		return nil, err
+	}
+	if created && mailer != nil {
+		if sendErr := mailer.SendTicketConfirmation(ctx, b); sendErr != nil {
+			slog.Error("email confirmation billet", "error", sendErr, "billet_id", b.ID, "pi", paymentIntentID)
+		}
+	}
+	return b, nil
 }

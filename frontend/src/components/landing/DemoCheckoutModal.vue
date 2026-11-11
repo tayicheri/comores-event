@@ -110,15 +110,15 @@ function onBuyerSubmit(payload: BuyerForm) {
       </LandingSectionTitle>
 
       <template v-if="step === 'recap'">
-        <p class="text-sm leading-body text-ink-muted">Voici le récapitulatif de votre réservation :</p>
-        <div class="my-4 rounded-media bg-pale p-4 text-sm leading-relaxed font-semibold">
+        <p class="text-base leading-body text-ink-muted">Voici le récapitulatif de votre réservation :</p>
+        <div class="my-4 rounded-media bg-pale p-4 text-base leading-relaxed font-semibold">
           <div v-for="line in lines" :key="line">{{ line }}</div>
         </div>
         <LandingButton class="mt-3.5" block @click="step = 'buyer'">Continuer</LandingButton>
       </template>
 
       <template v-else-if="step === 'buyer'">
-        <p class="mb-1 text-sm leading-body text-ink-muted">
+        <p class="mb-1 text-base leading-body text-ink-muted">
           Indiquez vos informations pour recevoir la confirmation.
         </p>
         <CheckoutBuyerForm @submit="onBuyerSubmit" @back="step = 'recap'" />
@@ -135,7 +135,7 @@ function onBuyerSubmit(payload: BuyerForm) {
       </template>
 
       <template v-else-if="step === 'success'">
-        <p class="text-sm leading-body text-ink-muted">
+        <p class="text-base leading-body text-ink-muted">
           Merci ! Votre paiement a bien été enregistré. Un billet valide figure désormais dans
           notre billetterie.
         </p>

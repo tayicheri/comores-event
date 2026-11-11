@@ -20,7 +20,7 @@ const telHref = (phone: string) => `tel:${phone.replace(/\s/g, '')}`
       <div>
         <LandingEyebrow tone="gold">EXPOSANTS · RÉSERVATION DE STAND</LandingEyebrow>
         <LandingSectionTitle id="stand-title" class="mb-5">Tenez votre stand au Salon.</LandingSectionTitle>
-        <p class="max-w-intro text-sm leading-loose text-heritage-body">
+        <p class="max-w-intro text-base leading-loose text-heritage-body">
           Artisans, restaurateurs, créateurs, associations, entrepreneurs : présentez vos savoir-faire et vos produits
           aux visiteurs du Salon de la culture et de la gastronomie comorienne en France. Réservez votre emplacement
           en contactant directement l’organisation.

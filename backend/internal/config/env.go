@@ -28,10 +28,27 @@ type Config struct {
 	IsProduction  bool
 	AllowedOrigin []string
 
-	StripeSecretKey        string
-	StripeWebhookSecret    string
-	TicketPriceDayCents    int
-	TicketPricePassCents   int
+	StripeSecretKey      string
+	StripeWebhookSecret  string
+	TicketPriceDayCents  int
+	TicketPricePassCents int
+
+	SMTP SMTPConfig
+}
+
+// SMTPConfig : envoi des emails client (confirmation billet), distinct du SMTP Grafana.
+type SMTPConfig struct {
+	Host        string
+	Port        string
+	User        string
+	Password    string
+	FromAddress string
+	FromName    string
+}
+
+// Configured indique si l'envoi SMTP est utilisable.
+func (s SMTPConfig) Configured() bool {
+	return strings.TrimSpace(s.Host) != "" && strings.TrimSpace(s.FromAddress) != ""
 }
 
 // RateLimits : nombre de requêtes autorisées par minute et par IP.
@@ -87,6 +104,14 @@ func Load() (*Config, error) {
 		StripeWebhookSecret:  strings.TrimSpace(os.Getenv("STRIPE_WEBHOOK_SECRET")),
 		TicketPriceDayCents:  getEnvInt("TICKET_PRICE_DAY_CENTS", 2000),
 		TicketPricePassCents: getEnvInt("TICKET_PRICE_PASS_CENTS", 3000),
+		SMTP: SMTPConfig{
+			Host:        strings.TrimSpace(os.Getenv("SMTP_HOST")),
+			Port:        getEnv("SMTP_PORT", "587"),
+			User:        strings.TrimSpace(os.Getenv("SMTP_USER")),
+			Password:    os.Getenv("SMTP_PASSWORD"),
+			FromAddress: strings.TrimSpace(os.Getenv("SMTP_FROM_ADDRESS")),
+			FromName:    getEnv("SMTP_FROM_NAME", "Comores Event"),
+		},
 	}
 	cfg.CookieSecure = cfg.IsProduction
 	cfg.AllowedOrigin = splitOrigins(cfg.FrontendURL)

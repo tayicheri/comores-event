@@ -24,7 +24,7 @@ import { EVENT_CONFIG, KIDS_FREE_LABEL, formatEuro } from './eventConfig'
           Salon de la culture et de la<br class="hidden sm:inline" />
           gastronomie comorienne en France
         </p>
-        <p class="mb-6 max-w-hero-desc text-sm leading-body text-ink-muted md:text-body">
+        <p class="mb-6 max-w-hero-desc text-base leading-body text-ink-muted md:text-lede">
           Deux jours de célébration, de découverte et de partage autour de la richesse culturelle et patrimoniale de
           six villes des Comores.
         </p>
@@ -35,7 +35,7 @@ import { EVENT_CONFIG, KIDS_FREE_LABEL, formatEuro } from './eventConfig'
           </LandingButton>
           <a href="#patrimoine" class="text-nav font-bold underline underline-offset-4">Découvrir le patrimoine</a>
         </div>
-        <p class="mt-5 text-caption text-ink-subtle">
+        <p class="mt-5 text-sm text-ink-subtle">
           Dès {{ formatEuro(EVENT_CONFIG.prices.day) }} / personne · Pass 2 jours à
           {{ formatEuro(EVENT_CONFIG.prices.pass) }} · {{ KIDS_FREE_LABEL }}
         </p>

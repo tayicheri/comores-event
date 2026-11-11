@@ -25,7 +25,7 @@ const links = [
         <div>
           <LandingEyebrow tone="corail">SALON DE LA CULTURE ET DE LA GASTRONOMIE COMORIENNE · 2027</LandingEyebrow>
           <LandingSectionTitle size="footer" class="my-3.5">On se retrouve à Nanterre ?</LandingSectionTitle>
-          <p class="text-nav text-heritage-muted">16 &amp; 17 janvier 2027 · Un patrimoine mondial à célébrer.</p>
+          <p class="text-sm text-heritage-muted">16 &amp; 17 janvier 2027 · Un patrimoine mondial à célébrer.</p>
         </div>
         <LandingButton href="#ticket-form" variant="yellow">
           Choisir mes billets

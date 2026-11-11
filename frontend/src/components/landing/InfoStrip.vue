@@ -48,11 +48,11 @@ const items: Array<{
         </span>
         <div class="min-w-0">
           <strong class="block text-xs font-semibold tracking-label text-gold-muted">{{ item.title }}</strong>
-          <p v-if="item.accentPrices" class="mt-2 text-nav">
+          <p v-if="item.accentPrices" class="mt-2 text-sm">
             <span class="text-gold">{{ EVENT_CONFIG.prices.day }} €</span> la journée ·
             <span class="text-gold">{{ EVENT_CONFIG.prices.pass }} €</span> les 2 jours
           </p>
-          <p v-else class="mt-2 text-nav">{{ item.body }}</p>
+          <p v-else class="mt-2 text-sm">{{ item.body }}</p>
         </div>
       </div>
     </LandingContainer>

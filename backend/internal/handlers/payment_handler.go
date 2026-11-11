@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"comores-event-api/internal/constants"
+	"comores-event-api/internal/mail"
 	"comores-event-api/internal/models"
 	"comores-event-api/internal/payments"
 	"comores-event-api/internal/repository"
@@ -21,6 +22,7 @@ type PaymentHandler struct {
 	billets       repository.BilletRepository
 	stripe        payments.StripeAPI
 	pricing       payments.PricingConfig
+	mailer        mail.Mailer
 	webhookSecret string
 }
 
@@ -29,12 +31,17 @@ func NewPaymentHandler(
 	billets repository.BilletRepository,
 	stripe payments.StripeAPI,
 	pricing payments.PricingConfig,
+	mailer mail.Mailer,
 	webhookSecret string,
 ) *PaymentHandler {
+	if mailer == nil {
+		mailer = mail.NopMailer{}
+	}
 	return &PaymentHandler{
 		billets:       billets,
 		stripe:        stripe,
 		pricing:       pricing,
+		mailer:        mailer,
 		webhookSecret: strings.TrimSpace(webhookSecret),
 	}
 }
@@ -118,7 +125,7 @@ func (h *PaymentHandler) Confirm(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	billet, err := payments.FulfillSucceeded(r.Context(), h.billets, piID, meta)
+	billet, err := payments.FulfillSucceeded(r.Context(), h.billets, h.mailer, piID, meta)
 	if err != nil {
 		slog.Error("fulfill billet", "error", err, "pi", piID)
 		WriteError(w, http.StatusInternalServerError, "Paiement reçu mais billet non créé")
@@ -156,7 +163,7 @@ func (h *PaymentHandler) StripeWebhook(w http.ResponseWriter, r *http.Request) {
 		for k, v := range pi.Metadata {
 			meta[k] = v
 		}
-		if _, err := payments.FulfillSucceeded(r.Context(), h.billets, pi.ID, meta); err != nil {
+		if _, err := payments.FulfillSucceeded(r.Context(), h.billets, h.mailer, pi.ID, meta); err != nil {
 			slog.Error("webhook fulfill", "error", err, "pi", pi.ID)
 			WriteError(w, http.StatusInternalServerError, "Échec création billet")
 			return

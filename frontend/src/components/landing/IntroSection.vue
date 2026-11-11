@@ -16,12 +16,12 @@ import SixCitiesList from './SixCitiesList.vue'
         <p class="mb-6 max-w-quote text-lede leading-lede">
           Un patrimoine à préserver. Une histoire à transmettre. Une culture à partager.
         </p>
-        <p class="max-w-intro text-sm leading-loose text-ink-muted">
+        <p class="max-w-intro text-base leading-loose text-ink-muted">
           Le Salon de la culture et de la gastronomie comorienne en France revient pour une 2e édition consacrée aux
           biens comoriens inscrits au patrimoine mondial de l’humanité. Il célèbre la richesse culturelle et
           patrimoniale de six villes des Comores : Moroni, Iconi, Itsandra, Domoni, Mutsamudu et Ntsoudjini.
         </p>
-        <p class="mt-4 max-w-intro text-sm leading-loose text-ink-muted">
+        <p class="mt-4 max-w-intro text-base leading-loose text-ink-muted">
           Expositions, conférences-débats, ateliers, danses traditionnelles, saveurs et musique : deux jours pour
           découvrir ces lieux d’exception et l’histoire qu’ils portent, que les Comores soient vos racines ou votre
           prochaine découverte.

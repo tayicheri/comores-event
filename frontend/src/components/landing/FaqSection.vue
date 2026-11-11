@@ -50,7 +50,7 @@ const items = [
           :open="item.open || undefined"
         >
           <summary
-            class="flex cursor-pointer list-none items-center justify-between gap-4 py-6 pr-1 text-sm font-bold marker:content-none [&::-webkit-details-marker]:hidden"
+            class="flex cursor-pointer list-none items-center justify-between gap-4 py-6 pr-1 text-base font-bold marker:content-none [&::-webkit-details-marker]:hidden"
           >
             {{ item.q }}
             <span
@@ -58,7 +58,7 @@ const items = [
               aria-hidden="true"
             />
           </summary>
-          <p class="mb-6 max-w-faq text-nav leading-relaxed text-ink-muted">{{ item.a }}</p>
+          <p class="mb-6 max-w-faq text-base leading-relaxed text-ink-muted">{{ item.a }}</p>
         </details>
       </div>
     </LandingContainer>

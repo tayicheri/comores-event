@@ -7,7 +7,7 @@ import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
 import { EVENT_CONFIG, KIDS_FREE_LABEL, formatEuro, type TicketDay, type TicketFormula } from './eventConfig'
 
-const formula = ref<TicketFormula>('day')
+const formula = ref<TicketFormula>('pass')
 const day = ref<TicketDay>('vendredi')
 const quantity = ref(1)
 
