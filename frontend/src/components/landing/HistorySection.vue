@@ -41,6 +41,26 @@ const slides: SlideshowSlide[] = [
     alt: 'Présentation de jeux traditionnels et vannerie au salon 2024',
     caption: 'Mraha et vannerie traditionnelle.',
   },
+  {
+    src: '/landing/salon-2024/08.jpg',
+    alt: 'Rencontre-dédicace au salon 2024 : stand de livres et textiles traditionnels',
+    caption: 'Rencontres et dédicaces autour des auteurs.',
+  },
+  {
+    src: '/landing/salon-2024/09.jpg',
+    alt: 'Bénévoles et participantes au salon de la culture comorienne 2024',
+    caption: 'L’équipe et les invitées de l’édition 2024.',
+  },
+  {
+    src: '/landing/salon-2024/10.jpg',
+    alt: 'Table ronde littéraire au salon 2024 avec lecture et échanges',
+    caption: 'Débats et lectures sur scène.',
+  },
+  {
+    src: '/landing/salon-2024/11.jpg',
+    alt: 'Stand de textiles et produits traditionnels au salon 2024',
+    caption: 'Artisanat et savoir-faire comoriens.',
+  },
 ]
 </script>
 
