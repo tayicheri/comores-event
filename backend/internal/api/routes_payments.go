@@ -13,8 +13,9 @@ import (
 func registerPaymentRoutes(mux *http.ServeMux, d Deps) {
 	stripeClient := payments.LiveStripe{SecretKey: d.Config.StripeSecretKey}
 	pricing := payments.PricingConfig{
-		DayCents:  d.Config.TicketPriceDayCents,
-		PassCents: d.Config.TicketPricePassCents,
+		DayCents:         d.Config.TicketPriceDayCents,
+		PassPresaleCents: d.Config.TicketPricePassCents,
+		PassRegularCents: d.Config.TicketPricePassRegularCents,
 	}
 	mailer := mail.NewFromConfig(d.Config.SMTP)
 	h := handlers.NewPaymentHandler(d.Billets, stripeClient, pricing, mailer, d.Config.StripeWebhookSecret)

@@ -5,13 +5,25 @@ import LandingContainer from './LandingContainer.vue'
 import LandingEyebrow from './LandingEyebrow.vue'
 import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
-import { EVENT_CONFIG, KIDS_FREE_LABEL, formatEuro, type TicketDay, type TicketFormula } from './eventConfig'
+import {
+  EVENT_CONFIG,
+  KIDS_FREE_LABEL,
+  PASS_PRESALE_NOTE,
+  formatEuro,
+  getPassPrice,
+  getTicketUnitPrice,
+  isPassPresale,
+  type TicketDay,
+  type TicketFormula,
+} from './eventConfig'
 
 const formula = ref<TicketFormula>('pass')
 const day = ref<TicketDay>('vendredi')
 const quantity = ref(1)
 
-const unit = computed(() => EVENT_CONFIG.prices[formula.value])
+const passPresale = isPassPresale()
+const passPrice = getPassPrice()
+const unit = computed(() => getTicketUnitPrice(formula.value))
 const total = computed(() => unit.value * quantity.value)
 const isDayTicket = computed(() => formula.value === 'day')
 const summary = computed(() => {
@@ -24,8 +36,14 @@ const emit = defineEmits<{
 }>()
 
 const formulas = [
-  { value: 'day' as const, title: '1 journée', price: EVENT_CONFIG.prices.day, caption: 'Samedi ou dimanche, au choix' },
-  { value: 'pass' as const, title: 'Pass 2 jours', price: EVENT_CONFIG.prices.pass, caption: 'Samedi et dimanche' },
+  { value: 'day' as const, title: '1 journée', price: EVENT_CONFIG.prices.day, caption: 'Samedi ou dimanche, au choix', showStar: false },
+  {
+    value: 'pass' as const,
+    title: 'Pass 2 jours',
+    price: passPrice,
+    caption: 'Samedi et dimanche',
+    showStar: passPresale,
+  },
 ]
 
 const days = [
@@ -128,11 +146,13 @@ function checkout() {
               </span>
             </span>
             <span class="font-serif my-2.5 text-panel font-medium md:my-4 md:text-price">
-              {{ opt.price }} € <small class="font-sans text-caption font-normal text-ink-subtle">/ personne</small>
+              {{ opt.price }} €<span v-if="opt.showStar" aria-hidden="true">*</span>
+              <small class="font-sans text-caption font-normal text-ink-subtle">/ personne</small>
             </span>
             <span class="text-xs text-ink-subtle md:text-eyebrow">{{ opt.caption }}</span>
           </label>
         </fieldset>
+        <p v-if="passPresale" class="mt-2.5 text-xs text-ink-subtle">{{ PASS_PRESALE_NOTE }}</p>
 
         <fieldset
           class="mt-6 border-0 p-0"

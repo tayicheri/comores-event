@@ -3,7 +3,9 @@ import LandingButton from './LandingButton.vue'
 import LandingContainer from './LandingContainer.vue'
 import LandingIcon from './LandingIcon.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
-import { EVENT_CONFIG, KIDS_FREE_LABEL, formatEuro } from './eventConfig'
+import { EVENT_CONFIG, KIDS_FREE_LABEL, formatEuro, getPassPrice } from './eventConfig'
+
+const passPrice = getPassPrice()
 </script>
 
 <template>
@@ -37,7 +39,7 @@ import { EVENT_CONFIG, KIDS_FREE_LABEL, formatEuro } from './eventConfig'
         </div>
         <p class="mt-5 text-sm text-ink-subtle">
           Dès {{ formatEuro(EVENT_CONFIG.prices.day) }} / personne · Pass 2 jours à
-          {{ formatEuro(EVENT_CONFIG.prices.pass) }} · {{ KIDS_FREE_LABEL }}
+          {{ formatEuro(passPrice) }} · {{ KIDS_FREE_LABEL }}
         </p>
       </div>
 

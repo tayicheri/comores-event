@@ -2,6 +2,7 @@ package payments
 
 import (
 	"testing"
+	"time"
 
 	"comores-event-api/internal/constants"
 	"comores-event-api/internal/models"
@@ -26,17 +27,48 @@ func TestDayFlags(t *testing.T) {
 }
 
 func TestAmountCents(t *testing.T) {
-	cfg := PricingConfig{DayCents: 2000, PassCents: 3000}
-	got, err := AmountCents(cfg, constants.TicketFormulaDay, 3)
+	cfg := PricingConfig{DayCents: 2000, PassPresaleCents: 3000, PassRegularCents: 3500}
+	got, err := AmountCentsAt(cfg, constants.TicketFormulaDay, 3, time.Date(2026, 6, 1, 12, 0, 0, 0, time.UTC))
 	if err != nil || got != 6000 {
 		t.Fatalf("day: got=%d err=%v", got, err)
 	}
-	got, err = AmountCents(cfg, constants.TicketFormulaPass, 2)
+	got, err = AmountCentsAt(cfg, constants.TicketFormulaPass, 2, time.Date(2026, 6, 1, 12, 0, 0, 0, time.UTC))
 	if err != nil || got != 6000 {
-		t.Fatalf("pass: got=%d err=%v", got, err)
+		t.Fatalf("pass presale: got=%d err=%v", got, err)
 	}
-	if _, err := AmountCents(cfg, constants.TicketFormulaDay, 0); err == nil {
+	if _, err := AmountCentsAt(cfg, constants.TicketFormulaDay, 0, time.Now()); err == nil {
 		t.Fatal("qty 0 should fail")
+	}
+}
+
+func TestPassUnitCentsPresaleCutoff(t *testing.T) {
+	cfg := PricingConfig{DayCents: 2000, PassPresaleCents: 3000, PassRegularCents: 3500}
+	paris := PassPresaleEndsAt.Location()
+
+	before := PassPresaleEndsAt.Add(-time.Second)
+	if got := PassUnitCents(cfg, before); got != 3000 {
+		t.Fatalf("before cutoff: got=%d want=3000", got)
+	}
+	if !IsPassPresale(before) {
+		t.Fatal("before cutoff should be presale")
+	}
+
+	at := time.Date(2027, 1, 1, 0, 0, 0, 0, paris)
+	if got := PassUnitCents(cfg, at); got != 3500 {
+		t.Fatalf("at cutoff: got=%d want=3500", got)
+	}
+	if IsPassPresale(at) {
+		t.Fatal("at cutoff should not be presale")
+	}
+
+	after := PassPresaleEndsAt.Add(time.Hour)
+	if got := PassUnitCents(cfg, after); got != 3500 {
+		t.Fatalf("after cutoff: got=%d want=3500", got)
+	}
+
+	got, err := AmountCentsAt(cfg, constants.TicketFormulaPass, 1, at)
+	if err != nil || got != 3500 {
+		t.Fatalf("amount at cutoff: got=%d err=%v", got, err)
 	}
 }
 
@@ -58,6 +90,6 @@ func TestInputFromMetadataRoundTrip(t *testing.T) {
 		t.Fatal(err)
 	}
 	if out != in {
-		t.Fatalf("roundtrip mismatch\n%+v\n%+v", in, out)
+		t.Fatalf("roundtrip mismatch\n%+v\n%+v", out, in)
 	}
 }

@@ -8,7 +8,8 @@
     "build": "vue-tsc -b && vite-ssg build",
     "preview": "vite preview",
     "typecheck": "vue-tsc -b --noEmit",
-    "test:seo": "node --experimental-strip-types --test seo/seoFiles.test.ts"
+    "test:seo": "node --experimental-strip-types --test seo/seoFiles.test.ts",
+    "test:pricing": "node --experimental-strip-types --test src/components/landing/eventConfig.test.ts"
   },
   "dependencies": {
     "@stripe/stripe-js": "^7.10.0",

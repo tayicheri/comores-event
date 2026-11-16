@@ -2,12 +2,17 @@
 import LandingContainer from './LandingContainer.vue'
 import LandingEyebrow from './LandingEyebrow.vue'
 import LandingSectionTitle from './LandingSectionTitle.vue'
-import { EVENT_CONFIG, formatEuro } from './eventConfig'
+import { EVENT_CONFIG, formatEuro, getPassPrice, isPassPresale } from './eventConfig'
+
+const passPrice = getPassPrice()
+const passPriceNote = isPassPresale()
+  ? `${formatEuro(passPrice)} par personne en prévente (puis ${formatEuro(EVENT_CONFIG.prices.passRegular)} à partir du 1er janvier 2027)`
+  : `${formatEuro(passPrice)} par personne`
 
 const items = [
   {
     q: 'Quelle formule choisir ?',
-    a: 'Le billet 1 journée est à 20 € par personne, avec le choix du samedi 16 ou du dimanche 17 janvier. Le pass 2 jours est à 30 € par personne pour profiter des deux journées.',
+    a: `Le billet 1 journée est à ${formatEuro(EVENT_CONFIG.prices.day)} par personne, avec le choix du samedi 16 ou du dimanche 17 janvier. Le pass 2 jours est à ${passPriceNote} pour profiter des deux journées.`,
     open: true,
   },
   {

@@ -61,6 +61,9 @@ async function pay() {
     if (result.error) {
       throw new Error(result.error.message || 'Paiement carte refusé')
     }
+    if (result.paymentIntent?.status !== 'succeeded') {
+      throw new Error('Paiement non confirmé (3D Secure requis ou incomplet)')
+    }
 
     await confirmPayment(intent.payment_intent_id)
     emit('paid')

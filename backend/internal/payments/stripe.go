@@ -38,6 +38,12 @@ func (s LiveStripe) CreatePaymentIntent(amount int, currency, receiptEmail strin
 		Amount:             stripe.Int64(int64(amount)),
 		Currency:           stripe.String(strings.ToLower(currency)),
 		PaymentMethodTypes: stripe.StringSlice([]string{"card"}),
+		// Force le challenge 3D Secure dès que la carte le supporte (défaut Stripe = automatic).
+		PaymentMethodOptions: &stripe.PaymentIntentPaymentMethodOptionsParams{
+			Card: &stripe.PaymentIntentPaymentMethodOptionsCardParams{
+				RequestThreeDSecure: stripe.String(string(stripe.PaymentIntentPaymentMethodOptionsCardRequestThreeDSecureAny)),
+			},
+		},
 	}
 	if receiptEmail != "" {
 		params.ReceiptEmail = stripe.String(receiptEmail)

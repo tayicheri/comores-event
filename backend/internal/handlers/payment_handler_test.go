@@ -101,7 +101,7 @@ func TestCreateIntent(t *testing.T) {
 	h := NewPaymentHandler(
 		&memBillets{},
 		fakeStripe{createID: "pi_1", createSecret: "sec_1", createStatus: "requires_payment_method"},
-		payments.PricingConfig{DayCents: 2000, PassCents: 3000},
+		payments.PricingConfig{DayCents: 2000, PassPresaleCents: 3000, PassRegularCents: 3500},
 		mail.NopMailer{},
 		"",
 	)
@@ -135,7 +135,7 @@ func TestConfirmIdempotent(t *testing.T) {
 			retrieveAmount: 2000,
 			retrieveMeta:   meta,
 		},
-		payments.PricingConfig{DayCents: 2000, PassCents: 3000},
+		payments.PricingConfig{DayCents: 2000, PassPresaleCents: 3000, PassRegularCents: 3500},
 		mailer,
 		"",
 	)

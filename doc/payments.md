@@ -6,8 +6,8 @@ Encaissement carte via Stripe PaymentIntent, création d’un billet après conf
 
 1. Sélection formule / jour / quantité sur la landing.
 2. Modale : récap → **Continuer** → coordonnées (nom, prénom, email, ville) → formulaire carte (Elements Stripe).
-3. `POST /api/payments/intent` crée un PaymentIntent (montant **recalculé serveur**).
-4. Le front confirme la carte (`confirmCardPayment`), puis `POST /api/payments/confirm`.
+3. `POST /api/payments/intent` crée un PaymentIntent (montant **recalculé serveur**, `request_three_d_secure=any` pour forcer le 3D Secure si la carte le permet).
+4. Le front confirme la carte (`confirmCardPayment`, challenge 3DS inclus), refuse si le statut n’est pas `succeeded`, puis `POST /api/payments/confirm`.
 5. Un billet `status=valid` est inséré (idempotent sur `stripe_payment_intent_id`).
 6. Si le billet vient d’être créé et que SMTP est configuré : email de confirmation (texte + HTML) à l’acheteur. Un échec d’envoi est loggé ; le paiement / billet restent valides. Pas de second email sur re-confirm / webhook (idempotence `created=false`).
 7. Backup : webhook `POST /api/webhooks/stripe` (`payment_intent.succeeded`).
@@ -33,7 +33,10 @@ Jours : `formula=pass` → `day_vendredi` et `day_samedi` à true ; `formula=day
 | `STRIPE_SECRET_KEY` | Clé secrète Stripe (obligatoire en prod) |
 | `STRIPE_WEBHOOK_SECRET` | Secret endpoint webhook |
 | `TICKET_PRICE_DAY_CENTS` | Défaut `2000` (20 €) |
-| `TICKET_PRICE_PASS_CENTS` | Défaut `3000` (30 €) |
+| `TICKET_PRICE_PASS_CENTS` | Prévente pass — défaut `3000` (30 €) |
+| `TICKET_PRICE_PASS_REGULAR_CENTS` | Tarif pass après prévente — défaut `3500` (35 €) |
+
+**Bascule prévente pass** : avant le `1er janvier 2027 00:00` (Europe/Paris), le pass est facturé au tarif prévente (`TICKET_PRICE_PASS_CENTS`). À partir de cet instant, tarif régulier (`TICKET_PRICE_PASS_REGULAR_CENTS`). Le frontend applique la même règle d’affichage.
 | `RATE_LIMIT_PAYMENTS` | Défaut `20` / min / IP |
 | `SMTP_HOST` | Hôte SMTP (vide = emails désactivés) |
 | `SMTP_PORT` | Défaut `587` |
