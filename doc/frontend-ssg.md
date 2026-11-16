@@ -16,8 +16,15 @@ Variables build importantes :
 | Variable | Rôle |
 |----------|------|
 | `VITE_SITE_URL` | URL canonique (prod : `FRONTEND_URL`) — **obligatoire** pour `robots.txt` / `sitemap.xml` |
-| `VITE_API_URL` | Origine API (CSP `connect-src`) |
+| `VITE_API_URL` | Origine API (CSP `connect-src` via `API_ORIGIN`) |
 | `VITE_APP_NAME` | Suffixe titres |
+
+## CSP (nginx prod)
+
+Définie dans `frontend/nginx.conf.template` :
+
+- Polices **self-hostées** (`src/assets/fonts`, `@font-face` dans `style.css`) — pas de `fonts.googleapis.com` / `fonts.gstatic.com`
+- Stripe Elements : `script-src` / `frame-src` → `js.stripe.com` (+ `hooks.stripe.com`), `connect-src` → `api.stripe.com` + `${API_ORIGIN}`
 
 Route prérendue : **`/` uniquement** (`ssgOptions.includedRoutes`).
 
