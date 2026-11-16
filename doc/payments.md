@@ -43,11 +43,11 @@ Jours : `formula=pass` → `day_vendredi` et `day_samedi` à true ; `formula=day
 
 Ces variables SMTP sont **propres au backend** (emails acheteur). Elles sont distinctes du SMTP Grafana (alertes développeur).
 
-**Frontend** :
+**Frontend** (build Vite — prod Docker : **`.env` racine** / build-arg `web`, pas `frontend/.env.production`) :
 
 | Variable | Rôle |
 |----------|------|
-| `VITE_STRIPE_PUBLISHABLE_KEY` | Clé publique Stripe |
+| `VITE_STRIPE_PUBLISHABLE_KEY` | Clé publique Stripe (`pk_…`, inlinée au build) |
 
 ## Schéma `billets`
 

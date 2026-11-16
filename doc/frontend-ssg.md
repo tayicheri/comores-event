@@ -18,6 +18,9 @@ Variables build importantes :
 | `VITE_SITE_URL` | URL canonique (prod : `FRONTEND_URL`) — **obligatoire** pour `robots.txt` / `sitemap.xml` |
 | `VITE_API_URL` | Origine API (CSP `connect-src` via `API_ORIGIN`) |
 | `VITE_APP_NAME` | Suffixe titres |
+| `VITE_STRIPE_PUBLISHABLE_KEY` | Clé publique Stripe (build-arg prod, `.env` racine) |
+
+En prod Docker, ces variables viennent du **`.env` racine** (`docker-compose.prod.yml` → build-args). `frontend/.env.production` est exclu du contexte image (`.dockerignore`).
 
 ## CSP (nginx prod)
 
