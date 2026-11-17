@@ -1,5 +1,7 @@
 export const EVENT_CONFIG = Object.freeze({
   name: 'Salon de la culture et de la gastronomie comorienne',
+  /** Nom public (titles, schema.org). */
+  fullName: 'Salon de la culture et de la gastronomie comorienne en France',
   year: 2027,
   dates: {
     // Clés API backend inchangées (day_vendredi / day_samedi) → 1er / 2e jour.
@@ -10,6 +12,9 @@ export const EVENT_CONFIG = Object.freeze({
   dateBadge: '16 & 17 JAN. 2027',
   dateKicker: '16 & 17 JANVIER 2027 À NANTERRE',
   dateOverlay: 'RENDEZ-VOUS LES 16 ET 17 JANVIER À NANTERRE',
+  /** Ouverture des stands (j1) → fin concert de clôture (j2), Europe/Paris. */
+  startDate: '2027-01-16T10:30:00+01:00',
+  endDate: '2027-01-17T23:00:00+01:00',
   prices: { day: 20, passPresale: 30, passRegular: 35 } as const,
   /** Fin de prévente pass (Europe/Paris) — à partir de cet instant : tarif régulier. */
   passPresaleEndsAt: '2027-01-01T00:00:00+01:00',
@@ -22,6 +27,10 @@ export const EVENT_CONFIG = Object.freeze({
   venue: {
     name: 'Salle des congrès',
     address: '118 Rue du 8 Mai 1945, 92000 Nanterre',
+    streetAddress: '118 Rue du 8 Mai 1945',
+    addressLocality: 'Nanterre',
+    postalCode: '92000',
+    addressCountry: 'FR',
     phones: ['07 77 16 86 84', '07 71 73 31 13'],
   },
 })

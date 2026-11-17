@@ -38,7 +38,13 @@ Route prérendue : **`/` uniquement** (`ssgOptions.includedRoutes`).
 - `robots.txt` — `Allow: /`, `Disallow: /lekeza`, lien Sitemap
 - `sitemap.xml` — uniquement `{VITE_SITE_URL}/`
 
-Test unitaire du helper : `npm run test:seo`.
+## Meta / données structurées (landing)
+
+- `index.html` : description, Open Graph, Twitter Card, **`<link rel="canonical">`** (`__OG_URL__` → `{VITE_SITE_URL}/`)
+- SSG landing : JSON-LD **`schema.org/Event`** via `@unhead/vue` (`src/seo/eventJsonLd.ts` → `usePageSeo`) — dates ISO, lieu Nanterre, offres billet/pass, image OG
+- Admin : pas de JSON-LD Event ; `noindex` (meta + `robots.txt` + header nginx)
+
+Test unitaire des helpers : `npm run test:seo`.
 
 ## Exclusion `/lekeza`
 

@@ -15,7 +15,8 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const devProxyTarget = env.VITE_DEV_PROXY_API || process.env.VITE_DEV_PROXY_API
   const siteUrl = (env.VITE_SITE_URL || process.env.VITE_SITE_URL || '').replace(/\/$/, '')
-  const ogUrl = siteUrl || '/'
+  /** Canonique + og:url avec slash final (aligné sitemap). */
+  const ogUrl = siteUrl ? `${siteUrl}/` : '/'
   const ogImage = siteUrl ? `${siteUrl}/og-image.jpg` : '/og-image.jpg'
   const distDir = fileURLToPath(new URL('./dist', import.meta.url))
 
