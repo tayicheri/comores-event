@@ -1,9 +1,9 @@
-# Policy par défaut : toutes les alertes Grafana → App Email.
+# Policy par défaut : toutes les alertes Grafana → Comores Event Email.
 apiVersion: 1
 
 policies:
   - orgId: 1
-    receiver: App Email
+    receiver: Comores Event Email
     group_by:
       - grafana_folder
       - alertname

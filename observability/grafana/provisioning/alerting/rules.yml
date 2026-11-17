@@ -1,5 +1,5 @@
 # Règles Grafana (requêtes Prometheus) — envoient un e-mail via le contact point
-# « App Email » (SMTP Grafana). Seuils alignés sur observability/prometheus/alerts.yml.
+# « Comores Event Email » (SMTP Grafana). Seuils alignés sur observability/prometheus/alerts.yml.
 apiVersion: 1
 
 groups:
@@ -9,7 +9,7 @@ groups:
     interval: 1m
     rules:
       - uid: app-api-down
-        title: API App indisponible
+        title: Comores Event — API indisponible
         condition: C
         data:
           - refId: A
@@ -72,13 +72,13 @@ groups:
         execErrState: Alerting
         for: 2m
         annotations:
-          summary: API App indisponible
-          description: Le probe /health/ready échoue depuis plus de 2 minutes.
+          summary: Comores Event — API indisponible
+          description: Comores Event : le probe /health/ready échoue depuis plus de 2 minutes.
         labels:
           severity: critical
         isPaused: false
         notification_settings:
-          receiver: App Email
+          receiver: Comores Event Email
           group_by:
             - alertname
             - grafana_folder
@@ -87,7 +87,7 @@ groups:
           repeat_interval: 1h
 
       - uid: app-api-5xx
-        title: Taux d'erreurs 5xx élevé
+        title: Comores Event — taux d'erreurs 5xx élevé
         condition: C
         data:
           - refId: A
@@ -150,20 +150,20 @@ groups:
         execErrState: Alerting
         for: 5m
         annotations:
-          summary: Taux d'erreurs 5xx élevé sur l'API
-          description: Plus de 10 erreurs 5xx/min en moyenne sur 5 minutes.
+          summary: Comores Event — taux d'erreurs 5xx élevé sur l'API
+          description: Comores Event : plus de 10 erreurs 5xx/min en moyenne sur 5 minutes.
         labels:
           severity: warning
         isPaused: false
         notification_settings:
-          receiver: App Email
+          receiver: Comores Event Email
           group_by:
             - alertname
             - grafana_folder
           repeat_interval: 4h
 
       - uid: app-host-memory
-        title: RAM hôte élevée
+        title: Comores Event — RAM hôte élevée
         condition: C
         data:
           - refId: A
@@ -226,20 +226,20 @@ groups:
         execErrState: Alerting
         for: 5m
         annotations:
-          summary: RAM hôte élevée (> 90 %)
-          description: Moins de 10 % de RAM disponible sur le serveur.
+          summary: Comores Event — RAM hôte élevée (> 90 %)
+          description: Comores Event : moins de 10 % de RAM disponible sur le serveur.
         labels:
           severity: warning
         isPaused: false
         notification_settings:
-          receiver: App Email
+          receiver: Comores Event Email
           group_by:
             - alertname
             - grafana_folder
           repeat_interval: 4h
 
       - uid: app-host-disk
-        title: Espace disque faible
+        title: Comores Event — espace disque faible
         condition: C
         data:
           - refId: A
@@ -302,13 +302,13 @@ groups:
         execErrState: Alerting
         for: 5m
         annotations:
-          summary: Espace disque faible
-          description: Plus de 85 % du disque racine est utilisé.
+          summary: Comores Event — espace disque faible
+          description: Comores Event : plus de 85 % du disque racine est utilisé.
         labels:
           severity: warning
         isPaused: false
         notification_settings:
-          receiver: App Email
+          receiver: Comores Event Email
           group_by:
             - alertname
             - grafana_folder

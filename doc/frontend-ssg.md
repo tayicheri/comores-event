@@ -53,6 +53,8 @@ Défense en profondeur (pas un contrôle d’accès — l’auth JWT reste oblig
 
 Le domaine frontend **n’envoie plus** de `X-Robots-Tag: noindex` global (sinon la landing resterait non indexable). L’API conserve le noindex.
 
+`www.{$CADDY_FRONTEND_DOMAIN}` redirige en **301** vers l’apex (`https://{$CADDY_FRONTEND_DOMAIN}{uri}`). `CADDY_FRONTEND_DOMAIN` et `FRONTEND_URL` doivent être l’apex **sans** `www`. Prérequis DNS : un `A`/`AAAA` (ou CNAME) pour `www` vers la même cible que l’apex (sinon ACME échoue pour `www`).
+
 ## Dev
 
 `npm run dev` reste Vite HMR classique (pas de prérendu). Les guards auth ne s’exécutent pas pendant le prérendu SSG (`isClient` only).

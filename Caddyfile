@@ -2,6 +2,11 @@
 	email {$CADDY_ACME_EMAIL}
 }
 
+# www → apex (CADDY_FRONTEND_DOMAIN = host apex sans www)
+www.{$CADDY_FRONTEND_DOMAIN} {
+	redir https://{$CADDY_FRONTEND_DOMAIN}{uri} permanent
+}
+
 {$CADDY_FRONTEND_DOMAIN} {
 	header Strict-Transport-Security "max-age=31536000; includeSubDomains"
 	reverse_proxy web:80
