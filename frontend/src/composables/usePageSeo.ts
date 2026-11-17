@@ -2,7 +2,7 @@ import { useHead } from '@unhead/vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-const appName = import.meta.env.VITE_APP_NAME || 'Comores Event'
+const appName = import.meta.env.VITE_APP_NAME || 'Salon de la culture'
 
 /** Title + robots (noindex sur les routes meta.noindex). */
 export function usePageSeo() {

@@ -13,7 +13,7 @@ CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]
 FROM node:22-alpine AS builder
 WORKDIR /app
 ARG VITE_API_URL=http://localhost:8080
-ARG VITE_APP_NAME="Comores Event"
+ARG VITE_APP_NAME="Salon de la culture"
 ARG VITE_SITE_URL=
 ARG VITE_STRIPE_PUBLISHABLE_KEY=
 ENV VITE_API_URL=$VITE_API_URL \

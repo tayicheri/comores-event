@@ -13,7 +13,7 @@ func buildTicketConfirmation(b *models.Billet) (subject, textBody, htmlBody stri
 	amount := formatEUR(b.AmountCents)
 	name := strings.TrimSpace(b.FirstName + " " + b.LastName)
 
-	subject = "Confirmation de votre billet — Comores Event"
+	subject = "Confirmation de votre billet — Salon de la culture"
 
 	textBody = fmt.Sprintf(`Bonjour %s,
 
@@ -28,7 +28,7 @@ Votre billet a bien été émis. Voici le récapitulatif :
 Présentez-vous à l'entrée avec une pièce d'identité et cette confirmation.
 
 À bientôt,
-L'équipe Comores Event
+L'équipe Salon de la culture
 `, name, b.ID, days, b.Quantity, amount, b.City)
 
 	htmlBody = fmt.Sprintf(`<!DOCTYPE html>
@@ -45,7 +45,7 @@ L'équipe Comores Event
     <li><strong>Ville :</strong> %s</li>
   </ul>
   <p>Présentez-vous à l'entrée avec une pièce d'identité et cette confirmation.</p>
-  <p>À bientôt,<br>L'équipe Comores Event</p>
+  <p>À bientôt,<br>L'équipe Salon de la culture</p>
 </body>
 </html>
 `,

@@ -5,7 +5,7 @@ defineProps<{
   error?: string | null
 }>()
 
-const appName = import.meta.env.VITE_APP_NAME || 'Comores Event'
+const appName = import.meta.env.VITE_APP_NAME || 'Salon de la culture'
 </script>
 
 <template>

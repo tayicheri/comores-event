@@ -46,7 +46,7 @@ func NewFromConfig(cfg config.SMTPConfig) Mailer {
 		cfg.Port = "587"
 	}
 	if strings.TrimSpace(cfg.FromName) == "" {
-		cfg.FromName = "Comores Event"
+		cfg.FromName = "Salon de la culture"
 	}
 	return &SMTPMailer{cfg: cfg}
 }

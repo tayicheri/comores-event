@@ -20,10 +20,10 @@ func TestBuildTicketConfirmation(t *testing.T) {
 		AmountCents: 6000,
 	}
 	subject, textBody, htmlBody := buildTicketConfirmation(b)
-	if !strings.Contains(subject, "Confirmation") {
+	if !strings.Contains(subject, "Confirmation") || !strings.Contains(subject, "Salon de la culture") {
 		t.Fatalf("subject: %q", subject)
 	}
-	for _, needle := range []string{"abc-123", "Amina Said", "2", "60.00 €", "Vendredi et Samedi"} {
+	for _, needle := range []string{"abc-123", "Amina Said", "2", "60.00 €", "Vendredi et Samedi", "Salon de la culture"} {
 		if !strings.Contains(textBody, needle) {
 			t.Fatalf("text missing %q in %q", needle, textBody)
 		}

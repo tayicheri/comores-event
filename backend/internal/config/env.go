@@ -112,7 +112,7 @@ func Load() (*Config, error) {
 			User:        strings.TrimSpace(os.Getenv("SMTP_USER")),
 			Password:    os.Getenv("SMTP_PASSWORD"),
 			FromAddress: strings.TrimSpace(os.Getenv("SMTP_FROM_ADDRESS")),
-			FromName:    getEnv("SMTP_FROM_NAME", "Comores Event"),
+			FromName:    getEnv("SMTP_FROM_NAME", "Salon de la culture"),
 		},
 	}
 	cfg.CookieSecure = cfg.IsProduction

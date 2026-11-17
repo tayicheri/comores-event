@@ -42,7 +42,7 @@ Jours : `formula=pass` → `day_vendredi` et `day_samedi` à true ; `formula=day
 | `SMTP_PORT` | Défaut `587` |
 | `SMTP_USER` / `SMTP_PASSWORD` | Auth SMTP (optionnel) |
 | `SMTP_FROM_ADDRESS` | Expéditeur client / marque (requis avec `SMTP_HOST`) |
-| `SMTP_FROM_NAME` | Défaut `Comores Event` |
+| `SMTP_FROM_NAME` | Défaut `Salon de la culture` |
 
 Ces variables SMTP sont **propres au backend** (emails acheteur). Elles sont distinctes du SMTP Grafana (alertes développeur).
 

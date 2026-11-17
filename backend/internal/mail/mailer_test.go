@@ -22,7 +22,7 @@ func TestNewFromConfigSMTPWhenReady(t *testing.T) {
 		Host:        "smtp.example.com",
 		Port:        "587",
 		FromAddress: "billets@example.com",
-		FromName:    "Comores Event",
+		FromName:    "Salon de la culture",
 	})
 	if _, ok := m.(*SMTPMailer); !ok {
 		t.Fatalf("want *SMTPMailer, got %T", m)
